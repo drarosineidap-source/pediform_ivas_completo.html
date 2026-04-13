@@ -3,275 +3,1354 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PediForm-IVAS — Formulário Completo</title>
+<title>PediForm-IVAS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* ═══════════════════════════════════════
+   DESIGN SYSTEM — LIGHT MODE SAAS
+═══════════════════════════════════════ */
 :root {
-  --navy:#0a1628; --navy-mid:#112240; --navy-light:#1a3a6b; --navy-card:#0d1f3c;
-  --red:#c0392b; --red-light:#e74c3c; --red-alert:#ff4444;
-  --gold:#d4a843; --text:#e8edf5; --text-muted:#8ba3c7;
-  --border:#1e3a5f; --border-bright:#2a5298;
-  --success:#27ae60; --warn:#e67e22; --input-bg:#0d1f3c; --tag-bg:#162d52;
-  --green:#1a5c2a; --green-light:#27ae60; --orange:#d35400;
+  --bg:        #f7f9fc;
+  --surface:   #ffffff;
+  --border:    #e2e8f0;
+  --border-md: #cbd5e1;
+  --text-dark: #1e293b;
+  --text-mid:  #475569;
+  --text-soft: #94a3b8;
+  --blue:      #3b82f6;
+  --blue-soft: #eff6ff;
+  --blue-mid:  #bfdbfe;
+  --green:     #22c55e;
+  --green-soft:#f0fdf4;
+  --green-mid: #bbf7d0;
+  --red:       #ef4444;
+  --red-soft:  #fff1f2;
+  --red-mid:   #fecaca;
+  --orange:    #f97316;
+  --orange-soft:#fff7ed;
+  --warn:      #f59e0b;
+  --warn-soft: #fffbeb;
+  --purple-soft:#f5f3ff;
+  --radius-sm: 8px;
+  --radius:    12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow:    0 4px 6px rgba(0,0,0,.05), 0 2px 4px rgba(0,0,0,.04);
+  --shadow-md: 0 10px 15px rgba(0,0,0,.05), 0 4px 6px rgba(0,0,0,.04);
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--navy);color:var(--text);font-family:Georgia,'Times New Roman',serif;font-size:13px;min-height:100vh;padding-bottom:60px;}
-/* HEADER */
-.form-header{background:linear-gradient(135deg,#0a1628,#112240,#0a1628);border-bottom:3px solid var(--red);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;}
-.form-header h1{font-size:20px;font-weight:bold;letter-spacing:1px;}
-.form-header h1 span{color:var(--red-light);}
-.form-header .subtitle{font-size:11px;color:var(--text-muted);margin-top:2px;}
-.datetime{font-size:11px;color:var(--gold);font-family:'Courier New',monospace;}
-/* BLOCO */
-.bloco{background:var(--navy-card);border:1px solid var(--border);border-left:4px solid var(--red);margin:14px 16px;border-radius:4px;overflow:hidden;}
-.bloco-titulo{background:linear-gradient(90deg,#1a1a2e,#162032);padding:10px 16px;font-size:13px;font-weight:bold;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
-.bloco-num{background:var(--red);color:white;font-size:10px;font-weight:bold;padding:2px 7px;border-radius:2px;}
-.bloco-body{padding:16px;}
-/* CAMPOS */
-.campo{display:flex;flex-direction:column;gap:4px;}
-.campo label{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);font-weight:bold;}
-.campo input,.campo select,.campo textarea{background:var(--input-bg);border:1px solid var(--border);color:var(--text);font-family:Georgia,serif;font-size:13px;padding:7px 10px;border-radius:3px;outline:none;transition:border-color .2s;width:100%;}
-.campo input:focus,.campo select:focus,.campo textarea:focus{border-color:var(--border-bright);}
-.campo select option{background:var(--navy-card);}
-.campo textarea{resize:vertical;min-height:50px;}
-/* GRIDS */
-.cg1{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px;}
-.cg2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:12px;}
-.cg3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px;}
-.cg-full{grid-column:1/-1;}
-.cs2{grid-column:span 2;}
-/* BOTÕES */
-.btn-sel{background:var(--tag-bg);border:1px solid var(--border);color:var(--text-muted);font-family:Georgia,serif;font-size:11px;padding:4px 10px;border-radius:3px;cursor:pointer;transition:all .15s;user-select:none;}
-.btn-sel:hover{border-color:var(--border-bright);color:var(--text);}
-.btn-sel.ativo{background:var(--navy-light);border-color:var(--border-bright);color:var(--text);font-weight:bold;}
-.btn-sel.ativo-red{background:#2d0000;border-color:var(--red-light);color:#ff9090;font-weight:bold;}
-.btn-sel.ativo-green{background:#0a2a14;border-color:var(--success);color:var(--success);font-weight:bold;}
-.btn-sel.ativo-warn{background:#2a1400;border-color:var(--warn);color:var(--warn);font-weight:bold;}
-.btn-group{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px;}
-/* BADGE CLASSIFICAÇÃO */
-.badge{display:inline-block;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:bold;letter-spacing:.5px;margin-top:4px;}
-.b-np{background:#7b1fa2;color:white;} .b-nt{background:#8e24aa;color:white;}
-.b-lm{background:#1565c0;color:white;} .b-lM{background:#0277bd;color:white;}
-.b-pe{background:#00695c;color:white;} .b-es{background:#2e7d32;color:white;}
-.b-ad{background:#e65100;color:white;} .b-vz{background:var(--border);color:var(--text-muted);}
-/* SUBBLOCO */
-.subbloco{background:#071020;border:1px solid var(--border-bright);border-left:3px solid var(--gold);border-radius:3px;padding:14px;margin-top:12px;animation:slideDown .25s ease;}
-.subbloco-titulo{font-size:11px;font-weight:bold;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
-/* ALERTA */
-.alerta-verm{background:#2d0000;border:2px solid var(--red-alert);border-radius:4px;padding:10px 14px;margin:10px 0;color:#ff8080;font-size:12px;font-weight:bold;animation:pulseA 2s infinite;display:none;}
-@keyframes pulseA{0%,100%{border-color:var(--red-alert);}50%{border-color:#ff8080;box-shadow:0 0 12px rgba(255,68,68,.3);}}
-/* SEP */
-.sep{border:none;border-top:1px solid var(--border);margin:12px 0;}
-/* ANIMAÇÃO */
-@keyframes slideDown{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
-/* PAT */
-.pat-layout{display:grid;grid-template-columns:210px 1fr;gap:18px;align-items:start;}
-.triangulo-svg{width:200px;height:180px;filter:drop-shadow(0 0 12px rgba(42,82,152,.4));}
-.pat-comp{background:#071020;border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:border-color .2s;margin-bottom:10px;}
-.pat-comp.anormal{border-color:var(--red-light);}
-.pat-comp.normal{border-color:var(--success);}
-.pat-comp-header{display:flex;align-items:center;gap:10px;padding:9px 13px;}
-.pat-comp-icone{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
-.pat-comp-nome{font-size:12px;font-weight:bold;color:var(--text);text-transform:uppercase;letter-spacing:.7px;flex:1;}
-.pat-comp-nome small{display:block;font-size:10px;color:var(--text-muted);text-transform:none;letter-spacing:0;font-weight:normal;margin-top:1px;}
-.btn-pat{font-family:Georgia,serif;font-size:11px;font-weight:bold;padding:5px 11px;border-radius:3px;cursor:pointer;border:1px solid var(--border);background:var(--tag-bg);color:var(--text-muted);transition:all .15s;user-select:none;}
-.btn-pat.normal-ativo{background:#0a2a14;border-color:var(--success);color:var(--success);}
-.btn-pat.anormal-ativo{background:#2d0000;border-color:var(--red-light);color:#ff8080;}
-.achados-container{padding:9px 13px 11px;border-top:1px solid var(--border);display:none;animation:slideDown .2s ease;}
-.achados-titulo{font-size:10px;color:var(--red-light);text-transform:uppercase;letter-spacing:.8px;font-weight:bold;margin-bottom:7px;}
-.btn-achado{background:#1a0a0a;border:1px solid #3a1515;color:#cc8080;font-family:Georgia,serif;font-size:11px;padding:4px 9px;border-radius:3px;cursor:pointer;transition:all .15s;user-select:none;margin:2px;}
-.btn-achado:hover{border-color:var(--red-light);color:var(--text);}
-.btn-achado.ativo{background:#3d0a0a;border-color:var(--red-light);color:#ff9090;font-weight:bold;}
-/* PAT CLASSIFICAÇÃO */
-.pat-class{margin-top:16px;border-radius:4px;overflow:hidden;border:2px solid var(--border);transition:all .3s;}
-.pat-class.estavel{border-color:var(--success);}
-.pat-class.atencao{border-color:var(--warn);}
-.pat-class.critico{border-color:var(--red-light);animation:pbr 1.5s infinite;}
-@keyframes pbr{0%,100%{border-color:var(--red-light);}50%{border-color:#ff4444;box-shadow:0 0 16px rgba(231,76,60,.3);}}
-.pat-class-hd{padding:9px 15px;font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);background:#071020;border-bottom:1px solid var(--border);}
-.pat-class-body{padding:13px 15px;display:flex;align-items:center;gap:14px;background:#050e1c;}
-.pat-class-nivel{font-size:21px;font-weight:bold;letter-spacing:1px;}
-.nivel-estavel{color:var(--success);} .nivel-atencao{color:var(--warn);} .nivel-critico{color:var(--red-light);} .nivel-pendente{color:var(--text-muted);}
-/* DIRECIONAMENTO */
-#secaoDirecionamento{display:none;margin-top:14px;animation:slideDown .3s ease;}
-.btn-ir-formulario{display:flex;align-items:center;justify-content:space-between;width:100%;background:linear-gradient(135deg,#0d3d1a,#1a5c2a,#0f4020);border:2px solid var(--green-light);border-radius:5px;color:white;font-family:Georgia,serif;padding:18px 26px;cursor:pointer;transition:all .2s;text-align:left;}
-.btn-ir-formulario:hover{box-shadow:0 6px 28px rgba(39,174,96,.3);transform:translateY(-2px);}
-.emerg-wrapper{background:#071020;border:2px solid var(--red-light);border-radius:5px;overflow:hidden;}
-.emerg-wrapper-header{background:linear-gradient(90deg,#2d0000,#1a0000);padding:11px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #5a1a1a;}
-.emerg-wrapper-header h3{font-size:13px;color:#ff8080;font-weight:bold;}
-.emerg-wrapper-body{padding:14px 16px;}
-.campos-rapidos-emerg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin-bottom:12px;}
-.btn-gerar-emerg{width:100%;background:linear-gradient(135deg,#7b1a13,#c0392b,#7b1a13);border:2px solid var(--red-light);color:white;font-family:Georgia,serif;font-size:14px;font-weight:bold;padding:13px 22px;border-radius:4px;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:all .2s;margin-top:4px;}
-.btn-gerar-emerg:hover{background:linear-gradient(135deg,#9b2a1a,#e74c3c,#9b2a1a);box-shadow:0 4px 20px rgba(231,76,60,.4);}
-.btn-gerar-emerg:disabled{opacity:.4;cursor:not-allowed;}
-/* CARDS CONTEXTO */
-.cards-container{display:flex;flex-direction:column;gap:10px;margin-top:6px;}
-.card-visita,.card-int{background:#071020;border:1px solid var(--border);border-radius:4px;overflow:hidden;animation:slideDown .2s ease;}
-.card-hd{background:linear-gradient(90deg,#0f2040,#071020);padding:7px 13px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);}
-.card-badge{background:var(--border-bright);color:white;font-size:10px;font-weight:bold;padding:2px 7px;border-radius:2px;}
-.card-badge.uti{background:var(--red);}
-.card-body-g{padding:11px 13px;display:grid;gap:9px;}
-.g2{grid-template-columns:1fr 1fr;} .g3{grid-template-columns:1fr 1fr 1fr;} .g4{grid-template-columns:1fr 1fr 1fr 1fr;}
-.btn-num-grp{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
-.btn-num{background:var(--tag-bg);border:1px solid var(--border);color:var(--text-muted);font-family:Georgia,serif;font-size:13px;font-weight:bold;width:36px;height:36px;border-radius:3px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;}
-.btn-num:hover{border-color:var(--border-bright);color:var(--text);}
-.btn-num.ativo{background:var(--red);border-color:var(--red-light);color:white;}
-.btn-num.zero.ativo{background:var(--navy-light);border-color:var(--border-bright);color:var(--text);}
-.zero-state{font-size:11px;color:var(--success);font-style:italic;padding:5px 11px;background:#001a0a;border:1px solid #1a4a2a;border-radius:3px;display:inline-block;}
-/* CARDS DIA (febre) */
-.card-dia{background:#071020;border:1px solid var(--border);border-radius:4px;overflow:hidden;animation:slideDown .2s ease;margin-bottom:12px;}
-.card-dia-hd{background:linear-gradient(90deg,#0f1e38,#071020);padding:7px 13px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);flex-wrap:wrap;}
-.day-badge{background:var(--red);color:white;font-size:10px;font-weight:bold;padding:2px 7px;border-radius:2px;}
-.day-badge.hoje{background:var(--orange);}
-.card-dia-body{padding:12px 13px;display:flex;flex-direction:column;gap:11px;}
-/* ANTITÉRMICO CALC */
-.anti-secao{background:#040d1a;border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:3px;padding:10px 12px;}
-.anti-titulo{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.8px;font-weight:bold;margin-bottom:7px;}
-.calc-drug{background:#071020;border:1px solid var(--border);border-radius:3px;padding:9px 11px;margin-top:7px;animation:slideDown .2s ease;}
-.calc-drug-titulo{font-size:11px;font-weight:bold;color:var(--text);margin-bottom:7px;display:flex;align-items:center;gap:7px;}
-.drug-badge{background:var(--navy-light);border:1px solid var(--border-bright);color:var(--text-muted);font-size:10px;padding:1px 6px;border-radius:2px;}
-.doses-row{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:7px;}
-.btn-dose{background:var(--tag-bg);border:1px solid var(--border);color:var(--text-muted);font-family:'Courier New',monospace;font-size:10px;padding:3px 8px;border-radius:3px;cursor:pointer;transition:all .15s;}
-.btn-dose.ativo{background:var(--navy-light);border-color:var(--border-bright);color:var(--text);font-weight:bold;}
-.calc-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;align-items:end;}
-.calc-res{padding:6px 9px;border-radius:3px;font-size:11px;font-weight:bold;text-align:center;border:1px solid var(--border);background:var(--input-bg);min-height:33px;display:flex;align-items:center;justify-content:center;}
-.calc-res.ok{background:#0a2a14;border-color:var(--success);color:var(--success);}
-.calc-res.warn{background:#2a1400;border-color:var(--warn);color:var(--warn);}
-.calc-res.erro{background:#2d0000;border-color:var(--red-light);color:#ff8080;}
-.intervalo-info{font-size:10px;color:var(--text-muted);font-style:italic;margin-top:3px;}
-/* HORA INPUT */
-.hora-input{background:var(--input-bg);border:1px solid var(--border);color:var(--gold);font-family:'Courier New',monospace;font-size:14px;padding:6px 10px;border-radius:3px;outline:none;width:100px;letter-spacing:2px;text-align:center;}
-.hora-input:focus{border-color:var(--border-bright);}
-.btn-agora{background:var(--tag-bg);border:1px solid var(--border);color:var(--text-muted);font-family:Georgia,serif;font-size:11px;padding:6px 11px;border-radius:3px;cursor:pointer;transition:all .15s;}
-.btn-agora:hover{border-color:var(--border-bright);color:var(--text);}
-.duracao-auto{font-size:11px;color:var(--gold);font-style:italic;padding:6px 0;}
-/* ESCORES */
-.escore-card{background:#071020;border:1px solid var(--border-bright);border-left:3px solid var(--gold);border-radius:4px;overflow:hidden;margin-bottom:14px;}
-.escore-hd{background:linear-gradient(90deg,#0f2040,#071020);padding:9px 14px;font-size:12px;font-weight:bold;color:var(--gold);letter-spacing:1px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
-.escore-body{padding:12px 14px;}
-.escore-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:9px;padding-bottom:9px;border-bottom:1px solid var(--border);}
-.escore-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-.escore-item-label{flex:1;font-size:12px;color:var(--text);}
-.escore-item-pontos{font-size:12px;font-weight:bold;color:var(--gold);white-space:nowrap;min-width:30px;text-align:right;}
-.escore-total-box{background:#040d1a;border:1px solid var(--border);border-radius:3px;padding:10px 14px;margin-top:10px;display:flex;align-items:center;gap:14px;}
-.escore-total-num{font-size:28px;font-weight:bold;min-width:40px;text-align:center;}
-.escore-class{font-size:14px;font-weight:bold;letter-spacing:.5px;}
-.e-leve{color:var(--success);}  .e-mod{color:var(--warn);}  .e-grav{color:var(--red-light);}
-/* EXAME FÍSICO */
-.ef-grupo{margin-bottom:14px;}
-.ef-grupo-titulo{font-size:10px;font-weight:bold;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--border);}
-/* LINHA DO TEMPO */
-#svgTimeline{width:100%;overflow:visible;}
-.timeline-wrapper{background:#071020;border:1px solid var(--border);border-radius:4px;padding:14px;overflow-x:auto;margin-bottom:14px;}
-/* GERAÇÃO */
-.btn-gerar-principal{width:100%;background:linear-gradient(135deg,#1a0a00,#c0392b,#1a0a00);border:2px solid var(--red-light);color:white;font-family:Georgia,serif;font-size:16px;font-weight:bold;padding:16px;border-radius:4px;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:all .2s;margin-bottom:10px;}
-.btn-gerar-principal:hover{box-shadow:0 4px 24px rgba(231,76,60,.4);}
-.btn-gerar-principal:disabled{opacity:.4;cursor:not-allowed;}
-.btn-imprimir{width:100%;background:linear-gradient(135deg,#071020,#1a3a6b);border:2px solid var(--border-bright);color:white;font-family:Georgia,serif;font-size:15px;font-weight:bold;padding:14px;border-radius:4px;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:all .2s;}
-.btn-imprimir:hover{box-shadow:0 4px 20px rgba(42,82,152,.4);}
-.resultado-box{background:#050e1c;border:2px solid var(--border-bright);border-radius:4px;overflow:hidden;margin-top:14px;}
-.resultado-hd{background:linear-gradient(90deg,#0f2040,#071020);padding:9px 15px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
-.resultado-hd span{font-size:11px;font-weight:bold;color:var(--gold);text-transform:uppercase;letter-spacing:1px;}
-.btn-copiar{background:var(--tag-bg);border:1px solid var(--border);color:var(--text-muted);font-family:Georgia,serif;font-size:11px;padding:4px 11px;border-radius:3px;cursor:pointer;transition:all .15s;}
-.btn-copiar:hover,.btn-copiar.copiado{border-color:var(--success);color:var(--success);}
-.resultado-texto{padding:15px;font-family:'Courier New',monospace;font-size:12px;line-height:1.8;color:#c8d8f0;white-space:pre-wrap;max-height:520px;overflow-y:auto;}
-.spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--red-light);border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle;}
-@keyframes spin{to{transform:rotate(360deg);}}
-/* RESUMO BOX */
-.resumo-box{background:#071020;border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:3px;padding:10px 13px;margin-top:12px;font-size:11px;color:var(--text-muted);line-height:1.7;}
-.resumo-box .r-titulo{color:var(--gold);font-weight:bold;font-size:10px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;}
-/* STATUS BAR */
-.status-bar{background:#060f1e;border-top:1px solid var(--border);padding:6px 16px;font-size:10px;color:var(--text-muted);font-family:'Courier New',monospace;display:flex;gap:20px;position:fixed;bottom:0;left:0;right:0;z-index:100;overflow-x:auto;}
-.status-bar .ok{color:var(--success);} .status-bar .warn{color:var(--warn);} .status-bar .crit{color:var(--red-light);}
-/* IMPRESSÃO */
-@media print{
-  body{background:white;color:black;font-family:Arial,sans-serif;font-size:12px;}
-  .form-header,.status-bar,.bloco,.btn-gerar-principal,.btn-imprimir,.resultado-box{display:none!important;}
-  #paginaImpressao{display:block!important;}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text-dark);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+  padding-bottom: 80px;
 }
-#paginaImpressao{display:none;}
-.print-bloco{background:white;color:black;border:1px solid #ccc;border-radius:4px;padding:14px;margin-bottom:12px;page-break-inside:avoid;}
-.print-titulo{font-size:14px;font-weight:bold;background:#1a3a6b;color:white;padding:8px 14px;border-radius:3px 3px 0 0;margin:-14px -14px 12px;}
-.print-alerta{background:#ffeeee;border:2px solid red;border-radius:4px;padding:10px;margin-bottom:12px;font-weight:bold;color:darkred;}
-.print-tabela{width:100%;border-collapse:collapse;margin-bottom:10px;}
-.print-tabela th{background:#1a3a6b;color:white;padding:6px 10px;text-align:left;font-size:11px;}
-.print-tabela td{padding:5px 10px;border-bottom:1px solid #ddd;font-size:11px;}
-.print-tabela tr:nth-child(even) td{background:#f5f5f5;}
-.print-alarme{background:#ffeeee;border:2px solid red;border-radius:4px;padding:12px;margin-bottom:12px;}
-.print-alarme h4{color:darkred;font-size:13px;margin-bottom:8px;text-transform:uppercase;}
-.print-alarme ul{margin-left:16px;}
-.print-alarme li{font-size:11px;margin-bottom:4px;}
-.print-medicacao{background:#f0f4ff;border:1px solid #1a3a6b;border-radius:4px;padding:12px;margin-bottom:12px;}
-.print-rodape{border-top:2px solid #1a3a6b;padding-top:10px;margin-top:16px;display:flex;justify-content:space-between;font-size:11px;}
-/* INPUT DATA */
-input.data-input{font-family:'Courier New',monospace;letter-spacing:1px;}
-/* CAMPO COM UNIDADE */
-.campo-com-unidade{display:flex;gap:6px;align-items:center;}
-.campo-com-unidade input{flex:1;}
-.campo-com-unidade select{background:var(--input-bg);border:1px solid var(--border);color:var(--text);font-family:Georgia,serif;font-size:12px;padding:7px 7px;border-radius:3px;outline:none;}
-/* SINAIS ALERTA */
-.sinais-alerta-btn{background:#1a0a0a;border:1px solid #3a1515;color:#cc8080;font-family:Georgia,serif;font-size:11px;padding:5px 11px;border-radius:3px;cursor:pointer;transition:all .15s;user-select:none;margin:2px;}
-.sinais-alerta-btn.ativo{background:#3d0a0a;border-color:var(--red-light);color:#ff9090;font-weight:bold;}
-/* SECAO LABEL */
-.secao-label{font-size:11px;font-weight:bold;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+
+/* ── CONTAINER ── */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ═══════════════════════════════════════
+   HEADER
+═══════════════════════════════════════ */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left { display: flex; align-items: center; gap: 12px; }
+
+.header-logo {
+  width: 34px; height: 34px;
+  background: var(--blue);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: -.3px;
+}
+
+.header-subtitle {
+  font-size: 12px;
+  color: var(--text-soft);
+  margin-top: 1px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-datetime {
+  font-size: 12px;
+  color: var(--text-mid);
+  text-align: right;
+}
+
+.header-datetime strong {
+  display: block;
+  font-size: 13px;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.header-avatar {
+  width: 32px; height: 32px;
+  background: var(--blue-soft);
+  border: 2px solid var(--blue-mid);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  color: var(--blue);
+}
+
+/* ═══════════════════════════════════════
+   PAGE HERO
+═══════════════════════════════════════ */
+.page-hero {
+  padding: 32px 0 20px;
+}
+
+.page-hero h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: -.5px;
+  margin-bottom: 6px;
+}
+
+.page-hero p {
+  font-size: 15px;
+  color: var(--text-mid);
+  font-weight: 400;
+}
+
+/* ═══════════════════════════════════════
+   SEÇÃO / CARD
+═══════════════════════════════════════ */
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.section-header {
+  padding: 18px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+
+.si-blue   { background: var(--blue-soft); }
+.si-green  { background: var(--green-soft); }
+.si-red    { background: var(--red-soft); }
+.si-orange { background: var(--orange-soft); }
+.si-purple { background: var(--purple-soft); }
+.si-warn   { background: var(--warn-soft); }
+
+.section-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dark);
+  letter-spacing: -.2px;
+}
+
+.section-subtitle {
+  font-size: 12px;
+  color: var(--text-soft);
+  margin-top: 2px;
+}
+
+.section-badge {
+  margin-left: auto;
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--blue-mid);
+}
+
+.section-body { padding: 24px; }
+
+/* ═══════════════════════════════════════
+   GRIDS
+═══════════════════════════════════════ */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 16px; }
+.g-auto { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.cs2 { grid-column: span 2; }
+.cs3 { grid-column: span 3; }
+.cs4 { grid-column: 1/-1; }
+
+/* ═══════════════════════════════════════
+   CAMPOS
+═══════════════════════════════════════ */
+.campo { display: flex; flex-direction: column; gap: 6px; }
+
+.campo label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-mid);
+  letter-spacing: .1px;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  color: var(--text-dark);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+  width: 100%;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(59,130,246,.1);
+  background: white;
+}
+
+.campo textarea { resize: vertical; min-height: 56px; }
+.campo select option { background: white; }
+input.data-input { font-family: 'Inter', monospace; letter-spacing: .5px; }
+
+.campo-inline { display: flex; gap: 8px; align-items: center; }
+.campo-inline input { flex: 1; }
+.campo-inline select {
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  color: var(--text-dark);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  padding: 9px 10px;
+  border-radius: var(--radius-sm);
+  outline: none;
+}
+
+/* ═══════════════════════════════════════
+   BOTÕES DE SELEÇÃO
+═══════════════════════════════════════ */
+.btn-group { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.btn-sel {
+  background: white;
+  border: 1.5px solid var(--border);
+  color: var(--text-mid);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all .15s;
+  user-select: none;
+}
+
+.btn-sel:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: var(--blue-soft);
+}
+
+.btn-sel.ativo {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: white;
+  font-weight: 600;
+}
+
+.btn-sel.ativo-red {
+  background: var(--red);
+  border-color: var(--red);
+  color: white;
+  font-weight: 600;
+}
+
+.btn-sel.ativo-green {
+  background: var(--green);
+  border-color: var(--green);
+  color: white;
+  font-weight: 600;
+}
+
+.btn-sel.ativo-warn {
+  background: var(--warn);
+  border-color: var(--warn);
+  color: white;
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════
+   BADGES DE FAIXA ETÁRIA
+═══════════════════════════════════════ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.b-vz  { background: var(--bg); color: var(--text-soft); border: 1px solid var(--border); }
+.b-np  { background: #faf5ff; color: #7c3aed; border: 1px solid #ddd6fe; }
+.b-nt  { background: #fdf4ff; color: #9333ea; border: 1px solid #e9d5ff; }
+.b-lm  { background: var(--blue-soft); color: #1d4ed8; border: 1px solid var(--blue-mid); }
+.b-lM  { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+.b-pe  { background: var(--green-soft); color: #15803d; border: 1px solid var(--green-mid); }
+.b-es  { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+.b-ad  { background: var(--orange-soft); color: #c2410c; border: 1px solid #fed7aa; }
+
+/* ═══════════════════════════════════════
+   SUBBLOCO (história neonatal etc)
+═══════════════════════════════════════ */
+.subbloco {
+  background: #fafbfd;
+  border: 1.5px solid var(--border);
+  border-left: 3px solid var(--blue);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-top: 16px;
+  animation: slideDown .2s ease;
+}
+
+.subbloco-titulo {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 14px;
+}
+
+/* ═══════════════════════════════════════
+   ALERTA
+═══════════════════════════════════════ */
+.alerta-verm {
+  background: var(--red-soft);
+  border: 1.5px solid var(--red-mid);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin: 12px 0;
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: 500;
+  display: none;
+  animation: slideDown .2s ease;
+}
+
+/* ═══════════════════════════════════════
+   PAT — TRIÂNGULO + CARDS
+═══════════════════════════════════════ */
+.pat-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.triangulo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  top: 80px;
+}
+
+.triangulo-svg {
+  width: 190px;
+  height: 170px;
+  filter: drop-shadow(0 2px 8px rgba(59,130,246,.12));
+}
+
+.pat-legenda {
+  margin-top: 12px;
+  display: flex;
+  gap: 14px;
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+.pat-legenda span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+}
+
+.leg-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+}
+
+/* PAT componentes */
+.pat-componentes { display: flex; flex-direction: column; gap: 12px; }
+
+.pat-comp {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color .2s, box-shadow .2s;
+  box-shadow: var(--shadow-sm);
+}
+
+.pat-comp.normal  { border-color: var(--green); box-shadow: 0 0 0 3px rgba(34,197,94,.08); }
+.pat-comp.anormal { border-color: var(--red);   box-shadow: 0 0 0 3px rgba(239,68,68,.08); }
+
+.pat-comp-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+.pat-comp-icone {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+
+.pat-comp-nome {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+  flex: 1;
+}
+
+.pat-comp-nome small {
+  display: block;
+  font-size: 11px;
+  color: var(--text-soft);
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+/* botões PAT Normal/Anormal */
+.btn-pat {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: 1.5px solid var(--border);
+  background: white;
+  color: var(--text-mid);
+  transition: all .15s;
+  user-select: none;
+}
+
+.btn-pat:hover { border-color: var(--blue-mid); color: var(--blue); background: var(--blue-soft); }
+
+.btn-pat.normal-ativo {
+  background: var(--green);
+  border-color: var(--green);
+  color: white;
+  font-weight: 600;
+}
+
+.btn-pat.anormal-ativo {
+  background: var(--red);
+  border-color: var(--red);
+  color: white;
+  font-weight: 600;
+}
+
+/* achados */
+.achados-container {
+  padding: 12px 16px 14px;
+  border-top: 1px solid var(--border);
+  background: #fafbfd;
+  display: none;
+  animation: slideDown .2s ease;
+}
+
+.achados-titulo {
+  font-size: 11px;
+  color: var(--red);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  margin-bottom: 8px;
+}
+
+.btn-achado {
+  display: inline-block;
+  background: white;
+  border: 1.5px solid var(--red-mid);
+  color: #b91c1c;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all .15s;
+  user-select: none;
+  margin: 2px;
+}
+
+.btn-achado:hover { background: var(--red-soft); }
+
+.btn-achado.ativo {
+  background: var(--red);
+  border-color: var(--red);
+  color: white;
+}
+
+/* ═══════════════════════════════════════
+   PAT CLASSIFICAÇÃO
+═══════════════════════════════════════ */
+.pat-class {
+  margin-top: 20px;
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all .3s;
+}
+
+.pat-class.estavel { border-color: var(--green); }
+.pat-class.atencao { border-color: var(--warn);  }
+.pat-class.critico { border-color: var(--red); animation: pulseRed 1.5s infinite; }
+
+@keyframes pulseRed {
+  0%,100% { box-shadow: 0 0 0 3px rgba(239,68,68,.1); }
+  50%      { box-shadow: 0 0 0 6px rgba(239,68,68,.2); }
+}
+
+.pat-class-hd {
+  padding: 10px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.pat-class-body {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pat-class-nivel {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -.3px;
+}
+
+.nivel-estavel { color: var(--green); }
+.nivel-atencao { color: var(--warn); }
+.nivel-critico { color: var(--red); }
+.nivel-pendente{ color: var(--text-soft); }
+
+/* ═══════════════════════════════════════
+   DIRECIONAMENTO
+═══════════════════════════════════════ */
+#secaoDirecionamento { display: none; margin-top: 20px; animation: slideDown .3s ease; }
+
+.btn-ir-formulario {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: white;
+  border: 2px solid var(--green);
+  border-radius: var(--radius);
+  color: var(--text-dark);
+  font-family: 'Inter', sans-serif;
+  padding: 20px 24px;
+  cursor: pointer;
+  transition: all .2s;
+  text-align: left;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-ir-formulario:hover {
+  background: var(--green-soft);
+  box-shadow: var(--shadow);
+  transform: translateY(-1px);
+}
+
+.btn-ir-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #15803d;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.btn-ir-sub {
+  font-size: 13px;
+  color: var(--text-mid);
+}
+
+/* emergência */
+.emerg-wrapper {
+  background: white;
+  border: 2px solid var(--red-mid);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.emerg-header {
+  background: var(--red-soft);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--red-mid);
+}
+
+.emerg-header h3 { font-size: 14px; font-weight: 700; color: #b91c1c; }
+.emerg-header p  { font-size: 12px; color: var(--text-mid); margin-top: 2px; }
+
+.emerg-body { padding: 20px; }
+
+/* ═══════════════════════════════════════
+   HORA
+═══════════════════════════════════════ */
+.hora-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.hora-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-mid);
+  white-space: nowrap;
+}
+
+.hora-input {
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  color: var(--text-dark);
+  font-family: 'Inter', monospace;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  outline: none;
+  width: 110px;
+  letter-spacing: 2px;
+  text-align: center;
+  transition: border-color .15s;
+}
+
+.hora-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,.1); }
+
+.btn-agora {
+  background: var(--blue-soft);
+  border: 1.5px solid var(--blue-mid);
+  color: var(--blue);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.btn-agora:hover { background: var(--blue); color: white; border-color: var(--blue); }
+
+.duracao-auto {
+  font-size: 12px;
+  color: var(--text-soft);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════
+   SEPARADOR
+═══════════════════════════════════════ */
+.sep {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 20px 0;
+}
+
+.secao-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-mid);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ═══════════════════════════════════════
+   BOTÕES NUMÉRICOS
+═══════════════════════════════════════ */
+.btn-num-grp { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+
+.btn-num {
+  background: white;
+  border: 1.5px solid var(--border);
+  color: var(--text-mid);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  width: 40px; height: 40px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all .15s;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.btn-num:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-soft); }
+.btn-num.ativo { background: var(--blue); border-color: var(--blue); color: white; }
+.btn-num.zero.ativo { background: var(--green-soft); border-color: var(--green); color: #15803d; }
+
+.zero-state {
+  font-size: 12px;
+  color: #15803d;
+  font-weight: 500;
+  padding: 8px 14px;
+  background: var(--green-soft);
+  border: 1px solid var(--green-mid);
+  border-radius: var(--radius-sm);
+  display: inline-block;
+}
+
+/* ═══════════════════════════════════════
+   CARDS (reentradas/internações)
+═══════════════════════════════════════ */
+.cards-container { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+
+.card-visita, .card-int {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  animation: slideDown .2s ease;
+}
+
+.card-hd {
+  background: var(--bg);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-badge {
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--blue-mid);
+}
+
+.card-badge.uti {
+  background: var(--red-soft);
+  color: var(--red);
+  border-color: var(--red-mid);
+}
+
+.card-body-g {
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+/* ═══════════════════════════════════════
+   CARDS DIA (febre)
+═══════════════════════════════════════ */
+.card-dia {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  animation: slideDown .2s ease;
+  margin-bottom: 14px;
+}
+
+.card-dia-hd {
+  background: var(--bg);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.day-badge {
+  background: var(--red-soft);
+  color: var(--red);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--red-mid);
+}
+
+.day-badge.hoje {
+  background: var(--orange-soft);
+  color: var(--orange);
+  border-color: #fed7aa;
+}
+
+.card-dia-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ═══════════════════════════════════════
+   ANTITÉRMICO CALC
+═══════════════════════════════════════ */
+.anti-secao {
+  background: var(--warn-soft);
+  border: 1.5px solid #fde68a;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.anti-titulo {
+  font-size: 12px;
+  font-weight: 600;
+  color: #92400e;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  margin-bottom: 10px;
+}
+
+.calc-drug {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  margin-top: 10px;
+  animation: slideDown .2s ease;
+}
+
+.calc-drug-titulo {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drug-badge {
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  border: 1px solid var(--blue-mid);
+}
+
+.doses-row { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+
+.btn-dose {
+  background: white;
+  border: 1.5px solid var(--border);
+  color: var(--text-mid);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.btn-dose:hover { border-color: var(--blue); color: var(--blue); }
+.btn-dose.ativo { background: var(--blue); border-color: var(--blue); color: white; font-weight: 600; }
+
+.calc-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; align-items: end; }
+
+.calc-res {
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+}
+
+.calc-res.ok   { background: var(--green-soft); border-color: var(--green-mid); color: #15803d; }
+.calc-res.warn { background: var(--warn-soft);  border-color: #fde68a;          color: #92400e; }
+.calc-res.erro { background: var(--red-soft);   border-color: var(--red-mid);   color: #b91c1c; }
+
+.intervalo-info { font-size: 11px; color: var(--text-soft); margin-top: 4px; }
+
+/* ═══════════════════════════════════════
+   ESCORES
+═══════════════════════════════════════ */
+.escore-card {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.escore-hd {
+  background: var(--bg);
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.escore-body { padding: 16px 18px; }
+
+.escore-item {
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text-dark);
+}
+
+.escore-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.escore-total-box {
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.escore-total-num { font-size: 32px; font-weight: 700; min-width: 44px; text-align: center; }
+.escore-class { font-size: 15px; font-weight: 700; }
+.e-leve { color: var(--green); }
+.e-mod  { color: var(--warn);  }
+.e-grav { color: var(--red);   }
+
+/* ═══════════════════════════════════════
+   EXAME FÍSICO
+═══════════════════════════════════════ */
+.ef-grupo { margin-bottom: 16px; }
+.ef-grupo-titulo {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-mid);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ═══════════════════════════════════════
+   SINAIS DE ALERTA
+═══════════════════════════════════════ */
+.sinais-alerta-btn {
+  display: inline-block;
+  background: white;
+  border: 1.5px solid var(--red-mid);
+  color: #b91c1c;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all .15s;
+  user-select: none;
+  margin: 2px;
+}
+
+.sinais-alerta-btn:hover { background: var(--red-soft); }
+.sinais-alerta-btn.ativo { background: var(--red); border-color: var(--red); color: white; }
+
+/* ═══════════════════════════════════════
+   TIMELINE
+═══════════════════════════════════════ */
+.timeline-wrapper {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+
+/* ═══════════════════════════════════════
+   BOTÕES PRINCIPAIS (geração)
+═══════════════════════════════════════ */
+.btn-gerar-principal {
+  width: 100%;
+  background: var(--blue);
+  border: none;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 15px 24px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all .2s;
+  margin-bottom: 12px;
+  letter-spacing: -.1px;
+}
+
+.btn-gerar-principal:hover { background: #2563eb; box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.btn-gerar-principal:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+.btn-imprimir {
+  width: 100%;
+  background: white;
+  border: 1.5px solid var(--border);
+  color: var(--text-dark);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 15px 24px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.btn-imprimir:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-soft); box-shadow: var(--shadow); }
+
+.btn-gerar-emerg {
+  width: 100%;
+  background: var(--red);
+  border: none;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 13px 20px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all .2s;
+  margin-top: 4px;
+}
+
+.btn-gerar-emerg:hover { background: #dc2626; box-shadow: var(--shadow); }
+.btn-gerar-emerg:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ═══════════════════════════════════════
+   RESULTADO API
+═══════════════════════════════════════ */
+.resultado-box {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-top: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.resultado-hd {
+  background: var(--bg);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.resultado-hd span {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.btn-copiar {
+  background: white;
+  border: 1.5px solid var(--border);
+  color: var(--text-mid);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.btn-copiar:hover, .btn-copiar.copiado { border-color: var(--green); color: var(--green); background: var(--green-soft); }
+
+.resultado-texto {
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text-dark);
+  white-space: pre-wrap;
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+/* ═══════════════════════════════════════
+   SPINNER
+═══════════════════════════════════════ */
+.spinner {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid var(--border);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ═══════════════════════════════════════
+   CAMPOS RÁPIDOS EMERGÊNCIA
+═══════════════════════════════════════ */
+.campos-rapidos-emerg {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+/* ═══════════════════════════════════════
+   STATUS BAR
+═══════════════════════════════════════ */
+.status-bar {
+  background: white;
+  border-top: 1px solid var(--border);
+  padding: 8px 24px;
+  font-size: 12px;
+  color: var(--text-soft);
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  gap: 20px;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 100;
+  overflow-x: auto;
+  box-shadow: 0 -1px 4px rgba(0,0,0,.05);
+}
+
+.status-bar .ok   { color: var(--green); font-weight: 500; }
+.status-bar .warn { color: var(--warn);  font-weight: 500; }
+.status-bar .crit { color: var(--red);   font-weight: 500; }
+
+/* ═══════════════════════════════════════
+   ANIMAÇÕES
+═══════════════════════════════════════ */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════
+   IMPRESSÃO
+═══════════════════════════════════════ */
+@media print {
+  body { background: white; }
+  .header, .status-bar, .section, .btn-gerar-principal, .btn-imprimir, .resultado-box { display: none !important; }
+  #paginaImpressao { display: block !important; }
+}
+
+#paginaImpressao { display: none; }
+
+/* ═══════════════════════════════════════
+   RESPONSIVO
+═══════════════════════════════════════ */
+@media (max-width: 768px) {
+  .pat-layout { grid-template-columns: 1fr; }
+  .g4 { grid-template-columns: 1fr 1fr; }
+  .g3 { grid-template-columns: 1fr 1fr; }
+  .g-auto { grid-template-columns: 1fr 1fr; }
+  .campos-rapidos-emerg { grid-template-columns: 1fr 1fr; }
+  .calc-row { grid-template-columns: 1fr 1fr; }
+  .page-hero h2 { font-size: 22px; }
+}
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════════
-     CABEÇALHO
-══════════════════════════════════════════════════ -->
-<header class="form-header">
-  <div>
-    <h1>Pedi<span>Form</span>-IVAS</h1>
-    <div class="subtitle">Formulário de Avaliação Pediátrica — Infecções de Vias Aéreas Superiores e Inferiores</div>
-  </div>
-  <div style="text-align:right;">
-    <div class="datetime" id="relogioHeader">—</div>
-    <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">
-      Peso: <span id="pesoRef" style="color:var(--gold);">—</span> kg &nbsp;|&nbsp;
-      PAT: <span id="patStatusHeader" style="color:var(--text-muted);">—</span>
+<!-- ═══════════════════════════════════════
+     HEADER
+═══════════════════════════════════════ -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="header-logo">🩺</div>
+      <div>
+        <div class="header-title">PediForm-IVAS</div>
+        <div class="header-subtitle">Formulário de Avaliação Pediátrica</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-datetime">
+        <strong id="relogioHeader">—</strong>
+        Peso: <span id="pesoRef" style="color:var(--blue);font-weight:600;">—</span> kg &nbsp;·&nbsp;
+        PAT: <span id="patStatusHeader" style="color:var(--text-soft);">—</span>
+      </div>
+      <div class="header-avatar">👩‍⚕️</div>
     </div>
   </div>
 </header>
 
-<!-- ══════════════════════════════════════════════════
-     BLOCO 0 — PAT (TELA INICIAL)
-══════════════════════════════════════════════════ -->
-<div class="bloco" id="bloco0">
-  <div class="bloco-titulo"><span class="bloco-num">00</span>Triângulo de Avaliação Pediátrica — PAT &nbsp;<span style="font-size:10px;color:var(--text-muted);font-weight:normal;text-transform:none;letter-spacing:0;">Avaliação inicial obrigatória</span></div>
-  <div class="bloco-body">
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);flex-wrap:wrap;">
-      <span style="font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);font-weight:bold;">Hora da avaliação:</span>
+<div class="container">
+
+  <!-- HERO -->
+  <div class="page-hero">
+    <h2>Avaliação Pediátrica — IVAS</h2>
+    <p>Infecções de Vias Aéreas Superiores e Inferiores · Emergência Pediátrica</p>
+  </div>
+
+<!-- ═══════════════════════════════════════
+     BLOCO 0 — PAT
+═══════════════════════════════════════ -->
+<div class="section" id="bloco0">
+  <div class="section-header">
+    <div class="section-icon si-blue">△</div>
+    <div>
+      <div class="section-title">Triângulo de Avaliação Pediátrica — PAT</div>
+      <div class="section-subtitle">Avaliação inicial obrigatória · Preencha os 3 vértices</div>
+    </div>
+    <div class="section-badge">Bloco 00</div>
+  </div>
+  <div class="section-body">
+
+    <!-- HORA -->
+    <div class="hora-row">
+      <span class="hora-label">Hora da avaliação:</span>
       <input type="text" class="hora-input" id="horaAvaliacao" placeholder="HH:MM" maxlength="5" oninput="mascaraHora(this)">
       <button class="btn-agora" onclick="preencherAgora('horaAvaliacao')">Agora</button>
+      <span class="duracao-auto">Registre o horário de início</span>
     </div>
+
+    <!-- PAT LAYOUT -->
     <div class="pat-layout">
-      <div style="display:flex;flex-direction:column;align-items:center;position:sticky;top:80px;">
+
+      <!-- TRIÂNGULO SVG -->
+      <div class="triangulo-wrapper">
         <svg class="triangulo-svg" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="gNeutro" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a3a6b"/><stop offset="100%" style="stop-color:#0d1f3c"/></linearGradient>
-            <linearGradient id="gNormal" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#0a3a1a"/><stop offset="100%" style="stop-color:#072010"/></linearGradient>
-            <linearGradient id="gAnormal" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#3d0a0a"/><stop offset="100%" style="stop-color:#2d0000"/></linearGradient>
+            <linearGradient id="gNeutro" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#dbeafe"/>
+              <stop offset="100%" style="stop-color:#eff6ff"/>
+            </linearGradient>
+            <linearGradient id="gNormal" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#bbf7d0"/>
+              <stop offset="100%" style="stop-color:#f0fdf4"/>
+            </linearGradient>
+            <linearGradient id="gAnormal" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#fecaca"/>
+              <stop offset="100%" style="stop-color:#fff1f2"/>
+            </linearGradient>
           </defs>
-          <polygon points="100,8 192,168 8,168" fill="none" stroke="#1e3a5f" stroke-width="2"/>
-          <polygon id="triApar" points="100,8 8,168 54,168 100,88" fill="url(#gNeutro)" stroke="#1e3a5f" stroke-width="1.5" opacity=".9"/>
-          <polygon id="triResp" points="100,8 192,168 146,168 100,88" fill="url(#gNeutro)" stroke="#1e3a5f" stroke-width="1.5" opacity=".9"/>
-          <polygon id="triCirc" points="54,168 100,88 146,168" fill="url(#gNeutro)" stroke="#1e3a5f" stroke-width="1.5" opacity=".9"/>
-          <text x="36" y="130" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#8ba3c7" transform="rotate(-60,36,130)">APARÊNCIA</text>
-          <text x="164" y="130" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#8ba3c7" transform="rotate(60,164,130)">RESPIRAÇÃO</text>
-          <text x="100" y="162" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#8ba3c7">CIRCULAÇÃO</text>
-          <circle cx="100" cy="88" r="4" fill="#2a5298" id="pontoCentral"/>
+          <polygon points="100,8 192,168 8,168" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+          <polygon id="triApar" points="100,8 8,168 54,168 100,88" fill="url(#gNeutro)" stroke="#93c5fd" stroke-width="1.5" opacity=".95"/>
+          <polygon id="triResp" points="100,8 192,168 146,168 100,88" fill="url(#gNeutro)" stroke="#93c5fd" stroke-width="1.5" opacity=".95"/>
+          <polygon id="triCirc" points="54,168 100,88 146,168" fill="url(#gNeutro)" stroke="#93c5fd" stroke-width="1.5" opacity=".95"/>
+          <text x="36" y="130" text-anchor="middle" font-family="Inter,sans-serif" font-size="7.5" fill="#64748b" transform="rotate(-60,36,130)">APARÊNCIA</text>
+          <text x="164" y="130" text-anchor="middle" font-family="Inter,sans-serif" font-size="7.5" fill="#64748b" transform="rotate(60,164,130)">RESPIRAÇÃO</text>
+          <text x="100" y="162" text-anchor="middle" font-family="Inter,sans-serif" font-size="7.5" fill="#64748b">CIRCULAÇÃO</text>
+          <circle cx="100" cy="88" r="5" fill="#93c5fd" id="pontoCentral"/>
         </svg>
-        <div style="margin-top:8px;font-size:10px;color:var(--text-muted);text-align:center;line-height:1.7;">
-          <div style="color:var(--success);">■ Normal</div><div style="color:var(--red-light);">■ Anormal</div>
+        <div class="pat-legenda">
+          <span><div class="leg-dot" style="background:var(--green);"></div>Normal</span>
+          <span><div class="leg-dot" style="background:var(--red);"></div>Anormal</span>
         </div>
       </div>
-      <div>
+
+      <!-- COMPONENTES -->
+      <div class="pat-componentes">
+
         <div class="pat-comp" id="compApar">
           <div class="pat-comp-header">
-            <div class="pat-comp-icone" style="background:#1a2a50;">🧠</div>
+            <div class="pat-comp-icone si-blue">🧠</div>
             <div class="pat-comp-nome">Aparência<small>Tônus · Interação · Consolabilidade · Olhar · Vocalização</small></div>
-            <div style="display:flex;gap:5px;">
+            <div style="display:flex;gap:6px;">
               <button class="btn-pat" id="btnAparN" onclick="selecionarPAT('apar','normal')">Normal</button>
               <button class="btn-pat" id="btnAparA" onclick="selecionarPAT('apar','anormal')">Anormal</button>
             </div>
@@ -287,11 +1366,12 @@ input.data-input{font-family:'Courier New',monospace;letter-spacing:1px;}
             </div>
           </div>
         </div>
+
         <div class="pat-comp" id="compResp">
           <div class="pat-comp-header">
-            <div class="pat-comp-icone" style="background:#1a2040;">🫁</div>
+            <div class="pat-comp-icone si-blue">🫁</div>
             <div class="pat-comp-nome">Trabalho Respiratório<small>Estridor · Gemência · Retrações · Posicionamento · Paradoxo</small></div>
-            <div style="display:flex;gap:5px;">
+            <div style="display:flex;gap:6px;">
               <button class="btn-pat" id="btnRespN" onclick="selecionarPAT('resp','normal')">Normal</button>
               <button class="btn-pat" id="btnRespA" onclick="selecionarPAT('resp','anormal')">Anormal</button>
             </div>
@@ -311,11 +1391,12 @@ input.data-input{font-family:'Courier New',monospace;letter-spacing:1px;}
             </div>
           </div>
         </div>
+
         <div class="pat-comp" id="compCirc">
           <div class="pat-comp-header">
-            <div class="pat-comp-icone" style="background:#1a1a40;">❤️</div>
+            <div class="pat-comp-icone si-red">❤️</div>
             <div class="pat-comp-nome">Circulação à Pele<small>Palidez · Moteamento · Cianose · TEC · Extremidades</small></div>
-            <div style="display:flex;gap:5px;">
+            <div style="display:flex;gap:6px;">
               <button class="btn-pat" id="btnCircN" onclick="selecionarPAT('circ','normal')">Normal</button>
               <button class="btn-pat" id="btnCircA" onclick="selecionarPAT('circ','anormal')">Anormal</button>
             </div>
@@ -331,78 +1412,94 @@ input.data-input{font-family:'Courier New',monospace;letter-spacing:1px;}
             </div>
           </div>
         </div>
+
+        <!-- CLASSIFICAÇÃO -->
         <div class="pat-class" id="patClass">
           <div class="pat-class-hd">Classificação do PAT</div>
           <div class="pat-class-body">
-            <div style="font-size:26px;" id="patIcone">⏳</div>
+            <div style="font-size:28px;" id="patIcone">⏳</div>
             <div style="flex:1;">
               <div class="pat-class-nivel nivel-pendente" id="patNivel">Aguardando avaliação dos 3 componentes</div>
-              <div style="font-size:11px;color:var(--text-muted);margin-top:3px;" id="patDescr">Avalie os três vértices para liberar o próximo passo.</div>
+              <div style="font-size:12px;color:var(--text-soft);margin-top:4px;" id="patDescr">Avalie os três vértices para liberar o próximo passo.</div>
             </div>
-            <div style="font-size:11px;color:var(--text-muted);text-align:right;font-family:'Courier New',monospace;">
-              <strong style="font-size:20px;display:block;text-align:center;" id="patPontos">—</strong>anormais
+            <div style="text-align:right;">
+              <div style="font-size:28px;font-weight:700;color:var(--text-soft);" id="patPontos">—</div>
+              <div style="font-size:11px;color:var(--text-soft);">anormais</div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
+
     <!-- DIRECIONAMENTO -->
     <div id="secaoDirecionamento">
       <div id="direcEstavel" style="display:none;">
-        <button class="btn-ir-formulario" onclick="document.getElementById('formularioCompleto').style.display='block';document.getElementById('secaoDirecionamento').style.display='none';window.scrollTo({top:document.getElementById('bloco1').offsetTop-10,behavior:'smooth'});">
-          <div><span style="font-size:17px;font-weight:bold;display:block;margin-bottom:4px;color:white;">✓ &nbsp;PAT Normal — Iniciar Formulário Completo</span><span style="font-size:12px;color:rgba(255,255,255,.7);font-style:italic;">Criança estável · Prosseguir para Bloco 1</span></div>
-          <span style="font-size:26px;opacity:.6;margin-left:14px;">→</span>
+        <button class="btn-ir-formulario" onclick="document.getElementById('formularioCompleto').style.display='block';document.getElementById('secaoDirecionamento').style.display='none';window.scrollTo({top:document.getElementById('bloco1').offsetTop-20,behavior:'smooth'});">
+          <div>
+            <span class="btn-ir-label">✓ PAT Normal — Iniciar Formulário Completo</span>
+            <span class="btn-ir-sub">Criança estável · Prosseguir para identificação do paciente</span>
+          </div>
+          <span style="font-size:22px;color:var(--green);">→</span>
         </button>
       </div>
       <div id="direcAlterado" style="display:none;">
         <div class="emerg-wrapper">
-          <div class="emerg-wrapper-header">
-            <span style="font-size:20px;animation:piscar 1s infinite;">🚨</span>
-            <div><h3>PAT Alterado — Conduta de Emergência</h3><p style="font-size:10px;color:var(--text-muted);margin-top:2px;">Preencha os dados e gere a conduta imediata. Formulário completo disponível após.</p></div>
+          <div class="emerg-header">
+            <span style="font-size:22px;">🚨</span>
+            <div>
+              <h3>PAT Alterado — Conduta de Emergência</h3>
+              <p>Preencha os dados e gere a conduta imediata. Formulário completo disponível após.</p>
+            </div>
           </div>
-          <div class="emerg-wrapper-body">
+          <div class="emerg-body">
             <div class="campos-rapidos-emerg">
               <div class="campo"><label>Nome do paciente</label><input type="text" id="emergNome" placeholder="Nome completo..."></div>
-              <div class="campo"><label>Idade</label><div style="display:flex;gap:5px;"><input type="number" id="emergIdadeNum" placeholder="Ex: 8" min="0" style="flex:1;"><select id="emergIdadeUnid" style="background:var(--input-bg);border:1px solid var(--border);color:var(--text);font-family:Georgia,serif;font-size:12px;padding:7px 5px;border-radius:3px;"><option value="">—</option><option>dias</option><option>meses</option><option>anos</option></select></div></div>
+              <div class="campo"><label>Idade</label><div class="campo-inline"><input type="number" id="emergIdadeNum" placeholder="Ex: 8" min="0"><select id="emergIdadeUnid"><option value="">—</option><option>dias</option><option>meses</option><option>anos</option></select></div></div>
               <div class="campo"><label>Peso (kg)</label><input type="number" id="emergPeso" placeholder="Ex: 14.5" step=".1" min="0"></div>
             </div>
             <button class="btn-gerar-emerg" id="btnGerarEmerg" onclick="gerarEmergencia()">🚨 Gerar Conduta de Emergência</button>
-            <div id="resultadoEmerg" style="display:none;margin-top:12px;">
+            <div id="resultadoEmerg" style="display:none;margin-top:14px;">
               <div class="resultado-box">
                 <div class="resultado-hd"><span>Conduta de Emergência</span><button class="btn-copiar" onclick="copiar('textoEmerg',this)">Copiar</button></div>
                 <div class="resultado-texto" id="textoEmerg"></div>
               </div>
-              <button onclick="document.getElementById('formularioCompleto').style.display='block';document.getElementById('resultadoEmerg').scrollIntoView({behavior:'smooth'});" style="display:block;width:100%;background:transparent;border:1px solid var(--border-bright);color:var(--text-muted);font-family:Georgia,serif;font-size:13px;padding:10px;border-radius:3px;cursor:pointer;text-align:center;margin-top:9px;transition:all .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">→ Continuar para formulário completo</button>
+              <button onclick="document.getElementById('formularioCompleto').style.display='block';" style="display:block;width:100%;background:white;border:1.5px solid var(--border);color:var(--text-mid);font-family:'Inter',sans-serif;font-size:13px;font-weight:500;padding:11px;border-radius:var(--radius-sm);cursor:pointer;text-align:center;margin-top:10px;transition:all .2s;" onmouseover="this.style.borderColor='var(--blue)';this.style.color='var(--blue)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-mid)'">→ Continuar para formulário completo</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </div>
 
-<!-- FORMULÁRIO COMPLETO (oculto até PAT ser avaliado) -->
+<!-- FORMULÁRIO COMPLETO -->
 <div id="formularioCompleto" style="display:none;">
 
-<!-- ══════════════════════════════════════════════════
+<!-- ═══════════════════════════════════════
      BLOCO 1 — IDENTIFICAÇÃO
-══════════════════════════════════════════════════ -->
-<div class="bloco" id="bloco1">
-  <div class="bloco-titulo"><span class="bloco-num">01</span>Identificação do Paciente</div>
-  <div class="bloco-body">
-    <div class="cg1">
+═══════════════════════════════════════ -->
+<div class="section" id="bloco1">
+  <div class="section-header">
+    <div class="section-icon si-blue">👤</div>
+    <div><div class="section-title">Identificação do Paciente</div><div class="section-subtitle">Dados cadastrais e faixa etária</div></div>
+    <div class="section-badge">Bloco 01</div>
+  </div>
+  <div class="section-body">
+    <div class="g4">
       <div class="campo cs2"><label>Nome completo</label><input type="text" id="pacNome" placeholder="Nome do paciente..." oninput="atualizarResumoIdent()"></div>
       <div class="campo"><label>Peso (kg)</label><input type="number" id="pacPeso" placeholder="Ex: 12.5" step=".1" min="0" oninput="sincronizarPeso()"></div>
       <div class="campo"><label>Sexo</label><div class="btn-group" id="grpSexo"><button class="btn-sel" onclick="selecionarUnico('grpSexo',this)" data-val="Masculino">Masculino</button><button class="btn-sel" onclick="selecionarUnico('grpSexo',this)" data-val="Feminino">Feminino</button></div></div>
     </div>
-    <div class="cg2">
+    <div class="g2">
       <div class="campo">
         <label>Idade</label>
-        <div class="campo-com-unidade">
+        <div class="campo-inline">
           <input type="number" id="pacIdadeNum" placeholder="Valor" min="0" oninput="classificarIdade()">
           <select id="pacIdadeUnid" onchange="classificarIdade()"><option value="">Unidade</option><option value="dias">dias</option><option value="meses">meses</option><option value="anos">anos</option></select>
         </div>
-        <div id="badgeIdade" class="badge b-vz" style="margin-top:6px;">Preencha a idade</div>
+        <div id="badgeIdade" class="badge b-vz">Preencha a idade</div>
       </div>
       <div class="campo">
         <label>Quem relata a história</label>
@@ -418,16 +1515,15 @@ input.data-input{font-family:'Courier New',monospace;letter-spacing:1px;}
           <button class="btn-sel" onclick="selecionarUnico('grpRelata',this);verificarOutro()">Resp. legal</button>
           <button class="btn-sel" onclick="selecionarUnico('grpRelata',this);verificarOutro()">Outro</button>
         </div>
-        <div id="campoOutroRelata" style="display:none;margin-top:6px;"><input type="text" id="outroRelataTexto" placeholder="Especificar..."></div>
+        <div id="campoOutroRelata" style="display:none;margin-top:8px;"><input type="text" id="outroRelataTexto" placeholder="Especificar..."></div>
       </div>
     </div>
-    <!-- HISTÓRIA NEONATAL -->
     <div id="secaoNeonatal" style="display:none;">
       <div class="subbloco">
         <div class="subbloco-titulo">▸ História Neonatal e Perinatal</div>
-        <div class="cg1">
+        <div class="g4">
           <div class="campo"><label>Prematuridade</label><div class="btn-group" id="grpPrematuridade"><button class="btn-sel" onclick="selecionarUnico('grpPrematuridade',this);togglePrematuridade()">Não</button><button class="btn-sel" onclick="selecionarUnico('grpPrematuridade',this);togglePrematuridade()">Sim</button></div></div>
-          <div class="campo" id="campoIG" style="display:none;"><label>Idade gestacional (sem)</label><input type="number" id="pacIG" placeholder="Ex: 34" min="20" max="44" oninput="classificarIG()"><div id="badgeIG" class="badge b-vz" style="margin-top:4px;font-size:10px;">Informe a IG</div></div>
+          <div class="campo" id="campoIG" style="display:none;"><label>Idade gestacional (sem)</label><input type="number" id="pacIG" placeholder="Ex: 34" min="20" max="44" oninput="classificarIG()"><div id="badgeIG" class="badge b-vz" style="margin-top:4px;">Informe a IG</div></div>
           <div class="campo"><label>Displasia broncopulmonar</label><div class="btn-group" id="grpDBP"><button class="btn-sel" onclick="selecionarUnico('grpDBP',this)">Não</button><button class="btn-sel" onclick="selecionarUnico('grpDBP',this)">Sim</button></div></div>
           <div class="campo"><label>Cardiopatia congênita</label><div class="btn-group" id="grpCardiopatia"><button class="btn-sel" onclick="selecionarUnico('grpCardiopatia',this);toggleCardiopatia()">Não</button><button class="btn-sel" onclick="selecionarUnico('grpCardiopatia',this);toggleCardiopatia()">Sim</button></div></div>
           <div class="campo cs2" id="campoCardioSpec" style="display:none;"><label>Especificar cardiopatia</label><input type="text" id="cardioSpec" placeholder="Ex: CIV, CIA, Tetralogia de Fallot..."></div>
@@ -439,12 +1535,16 @@ input.data-input{font-family:'Courier New',monospace;letter-spacing:1px;}
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     BLOCO 2 — CONTEXTO DA CONSULTA
-══════════════════════════════════════════════════ -->
-<div class="bloco" id="bloco2">
-  <div class="bloco-titulo"><span class="bloco-num">02</span>Contexto da Consulta</div>
-  <div class="bloco-body">
+<!-- ═══════════════════════════════════════
+     BLOCO 2 — CONTEXTO
+═══════════════════════════════════════ -->
+<div class="section" id="bloco2">
+  <div class="section-header">
+    <div class="section-icon si-orange">📋</div>
+    <div><div class="section-title">Contexto da Consulta</div><div class="section-subtitle">Reentradas ao PS e internações anteriores</div></div>
+    <div class="section-badge">Bloco 02</div>
+  </div>
+  <div class="section-body">
     <div class="secao-label">Reentradas ao PS por esta queixa</div>
     <div class="btn-num-grp" id="grpReentradas"></div>
     <div id="contReentradas"></div>
@@ -455,62 +1555,75 @@ input.data-input{font-family:'Courier New',monospace;letter-spacing:1px;}
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
+<!-- ═══════════════════════════════════════
      BLOCO 4 — FEBRE
-══════════════════════════════════════════════════ -->
-<div class="bloco" id="bloco4">
-  <div class="bloco-titulo"><span class="bloco-num">04</span>Febre</div>
-  <div class="bloco-body">
-    <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;flex-wrap:wrap;">
-      <span style="font-size:12px;font-weight:bold;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Febre:</span>
+═══════════════════════════════════════ -->
+<div class="section" id="bloco4">
+  <div class="section-header">
+    <div class="section-icon si-red">🌡️</div>
+    <div><div class="section-title">Febre</div><div class="section-subtitle">Evolução diária, antitérmicos e resposta ao tratamento</div></div>
+    <div class="section-badge">Bloco 04</div>
+  </div>
+  <div class="section-body">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-size:13px;font-weight:500;color:var(--text-mid);">Febre:</span>
       <button class="btn-sel" id="btnFebPresente" onclick="selecionarFebre('presente')">Presente</button>
       <button class="btn-sel" id="btnFebAusente" onclick="selecionarFebre('ausente')">Ausente</button>
-      <div class="campo" style="margin-left:auto;"><label>Peso do paciente (kg)</label><input type="number" id="pesoPacFeb" placeholder="Ex: 12.5" step=".1" min="0" style="width:110px;" oninput="document.getElementById('pesoRef').textContent=this.value||'—';document.getElementById('pacPeso').value=this.value;sincronizarPeso();"></div>
+      <div class="campo" style="margin-left:auto;">
+        <label>Peso do paciente (kg)</label>
+        <input type="number" id="pesoPacFeb" placeholder="Ex: 12.5" step=".1" min="0" style="width:120px;" oninput="document.getElementById('pesoRef').textContent=this.value||'—';document.getElementById('pacPeso').value=this.value;sincronizarPeso();">
+      </div>
     </div>
-    <div class="alerta-verm" id="alertaNeonatal">⚠ ATENÇÃO — Faixa etária neonatal: qualquer temperatura axilar acima de 37,8°C em menor de 1 mês exige avaliação médica imediata. Não aguardar.</div>
+    <div class="alerta-verm" id="alertaNeonatal">⚠ ATENÇÃO — Faixa etária neonatal: qualquer temperatura axilar acima de 37,8°C em menor de 1 mês exige avaliação médica imediata.</div>
     <div id="corpoFebre" style="display:none;">
-      <div style="display:flex;align-items:flex-end;gap:14px;margin-bottom:14px;flex-wrap:wrap;">
-        <div class="campo"><label>Data de início da febre</label><input type="text" id="dataInicioFebre" class="data-input" placeholder="DD/MM/AAAA" maxlength="10" oninput="mascaraData(this);gerarCardsDias()" style="width:140px;"></div>
-        <div class="campo"><label>Horário de início</label><input type="text" id="horaInicioFebre" placeholder="HH:MM" maxlength="5" style="width:90px;" oninput="mascaraHora(this);atualizarDuracaoFebre()"></div>
+      <div style="display:flex;align-items:flex-end;gap:16px;margin-bottom:16px;flex-wrap:wrap;">
+        <div class="campo"><label>Data de início da febre</label><input type="text" id="dataInicioFebre" class="data-input" placeholder="DD/MM/AAAA" maxlength="10" oninput="mascaraData(this);gerarCardsDias()" style="width:150px;"></div>
+        <div class="campo"><label>Horário de início</label><input type="text" id="horaInicioFebre" placeholder="HH:MM" maxlength="5" style="width:100px;" oninput="mascaraHora(this);atualizarDuracaoFebre()"></div>
         <span class="duracao-auto" id="duracaoFebreAuto"></span>
       </div>
       <div id="cardsDiasContainer"></div>
-      <div id="duracaoTotalBox" style="display:none;margin-bottom:12px;"><div style="background:#040d1a;border:1px solid var(--border);border-radius:3px;padding:7px 13px;font-size:11px;color:var(--text-muted);"><span style="color:var(--gold);font-weight:bold;">Duração total: </span><span id="duracaoTotalTxt"></span></div></div>
-      <div id="compGeralBox" style="display:none;background:#040d1a;border:1px solid var(--border-bright);border-radius:3px;padding:11px 13px;margin-top:4px;">
-        <div style="font-size:11px;color:var(--border-bright);font-weight:bold;margin-bottom:5px;text-transform:uppercase;letter-spacing:.8px;">Compreensão geral — comportamento do antitérmico</div>
-        <div style="font-size:10px;color:var(--text-muted);font-style:italic;margin-bottom:7px;line-height:1.5;">O antitérmico leva ~1h30 para agir e reduz ~1,5°C. A febre não precisa ser zerada — é resposta imunológica.</div>
-        <div class="btn-group" id="grpCompGeral"><button class="btn-sel" onclick="selecionarUnico('grpCompGeral',this)">Sim compreende</button><button class="btn-sel" onclick="selecionarUnico('grpCompGeral',this)">Não compreendia — orientado agora</button><button class="btn-sel" onclick="selecionarUnico('grpCompGeral',this)">Não avaliado</button></div>
+      <div id="duracaoTotalBox" style="display:none;margin-bottom:14px;">
+        <div style="background:var(--blue-soft);border:1px solid var(--blue-mid);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px;color:var(--blue);font-weight:500;">
+          Duração total da febre: <strong id="duracaoTotalTxt"></strong>
+        </div>
+      </div>
+      <div id="compGeralBox" style="display:none;background:#fafbfd;border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:4px;">
+        <div style="font-size:13px;font-weight:600;color:var(--text-dark);margin-bottom:4px;">Compreensão geral — comportamento do antitérmico</div>
+        <div style="font-size:12px;color:var(--text-soft);margin-bottom:10px;">O antitérmico leva ~1h30 para agir e reduz ~1,5°C. A febre não precisa ser zerada.</div>
+        <div class="btn-group" id="grpCompGeral">
+          <button class="btn-sel" onclick="selecionarUnico('grpCompGeral',this)">Sim compreende</button>
+          <button class="btn-sel" onclick="selecionarUnico('grpCompGeral',this)">Não compreendia — orientado agora</button>
+          <button class="btn-sel" onclick="selecionarUnico('grpCompGeral',this)">Não avaliado</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
+<!-- ═══════════════════════════════════════
      BLOCO 5 — SINTOMAS RESPIRATÓRIOS
-══════════════════════════════════════════════════ -->
-<div class="bloco" id="bloco5">
-  <div class="bloco-titulo"><span class="bloco-num">05</span>Sintomas Respiratórios</div>
-  <div class="bloco-body">
-    <!-- CORIZA -->
+═══════════════════════════════════════ -->
+<div class="section" id="bloco5">
+  <div class="section-header">
+    <div class="section-icon si-blue">🫁</div>
+    <div><div class="section-title">Sintomas Respiratórios</div><div class="section-subtitle">Coriza · Tosse · Sibilância · Dispneia</div></div>
+    <div class="section-badge">Bloco 05</div>
+  </div>
+  <div class="section-body">
     <div class="secao-label">Coriza</div>
-    <div class="cg3" style="margin-bottom:6px;">
-      <div class="campo"><label>Presença</label><div class="btn-group" id="grpCoriza"><button class="btn-sel" onclick="selecionarUnico('grpCoriza',this);toggleSintoma('coriza',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpCoriza',this);toggleSintoma('coriza',true)">Presente</button></div></div>
-    </div>
+    <div class="btn-group" id="grpCoriza" style="margin-bottom:10px;"><button class="btn-sel" onclick="selecionarUnico('grpCoriza',this);toggleSintoma('coriza',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpCoriza',this);toggleSintoma('coriza',true)">Presente</button></div>
     <div id="detalheCoriza" style="display:none;animation:slideDown .2s ease;">
-      <div class="cg3">
+      <div class="g3">
         <div class="campo"><label>Data de início</label><input type="text" id="dataCoriza" class="data-input" placeholder="DD/MM/AAAA" maxlength="10" oninput="mascaraData(this)"></div>
         <div class="campo"><label>Tipo</label><div class="btn-group" id="grpTipoCoriza"><button class="btn-sel" onclick="selecionarUnico('grpTipoCoriza',this)">Clara ou aquosa</button><button class="btn-sel" onclick="selecionarUnico('grpTipoCoriza',this)">Espessa amarelada</button><button class="btn-sel" onclick="selecionarUnico('grpTipoCoriza',this)">Espessa esverdeada</button><button class="btn-sel" onclick="selecionarUnico('grpTipoCoriza',this)">Com sangue</button></div></div>
         <div class="campo"><label>Obstrução nasal</label><div class="btn-group" id="grpObstNasal"><button class="btn-sel" onclick="selecionarUnico('grpObstNasal',this)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpObstNasal',this)">Leve</button><button class="btn-sel" onclick="selecionarUnico('grpObstNasal',this)">Moderada</button><button class="btn-sel" onclick="selecionarUnico('grpObstNasal',this)">Grave</button></div></div>
       </div>
     </div>
     <div class="sep"></div>
-    <!-- TOSSE -->
     <div class="secao-label">Tosse</div>
-    <div class="cg3" style="margin-bottom:6px;">
-      <div class="campo"><label>Presença</label><div class="btn-group" id="grpTosse"><button class="btn-sel" onclick="selecionarUnico('grpTosse',this);toggleSintoma('tosse',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpTosse',this);toggleSintoma('tosse',true)">Presente</button></div></div>
-    </div>
+    <div class="btn-group" id="grpTosse" style="margin-bottom:10px;"><button class="btn-sel" onclick="selecionarUnico('grpTosse',this);toggleSintoma('tosse',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpTosse',this);toggleSintoma('tosse',true)">Presente</button></div>
     <div id="detalheTosse" style="display:none;animation:slideDown .2s ease;">
-      <div class="cg3">
+      <div class="g3">
         <div class="campo"><label>Data de início</label><input type="text" id="dataTosse" class="data-input" placeholder="DD/MM/AAAA" maxlength="10" oninput="mascaraData(this)"></div>
         <div class="campo"><label>Tipo</label><div class="btn-group" id="grpTipoTosse"><button class="btn-sel" onclick="selecionarUnico('grpTipoTosse',this)">Seca</button><button class="btn-sel" onclick="selecionarUnico('grpTipoTosse',this)">Produtiva</button><button class="btn-sel" onclick="selecionarUnico('grpTipoTosse',this)">Latido / crupe</button><button class="btn-sel" onclick="selecionarUnico('grpTipoTosse',this)">Paroxística</button></div></div>
         <div class="campo"><label>Horário predominante</label><div class="btn-group" id="grpHorTosse"><button class="btn-sel" onclick="selecionarUnico('grpHorTosse',this)">Noturna</button><button class="btn-sel" onclick="selecionarUnico('grpHorTosse',this)">Diurna</button><button class="btn-sel" onclick="selecionarUnico('grpHorTosse',this)">Ao acordar</button><button class="btn-sel" onclick="selecionarUnico('grpHorTosse',this)">Contínua</button></div></div>
@@ -518,8 +1631,8 @@ input.data-input{font-family:'Courier New',monospace;letter-spacing:1px;}
         <div class="campo"><label>Piora progressiva</label><div class="btn-group" id="grpPioraTosse"><button class="btn-sel" onclick="selecionarUnico('grpPioraTosse',this)">Não</button><button class="btn-sel" onclick="selecionarUnico('grpPioraTosse',this)">Sim</button></div></div>
         <div class="campo"><label>Engasgo ou cianose durante tosse</label><div class="btn-group" id="grpEngasgo"><button class="btn-sel" onclick="selecionarUnico('grpEngasgo',this)">Não</button><button class="btn-sel" onclick="selecionarUnico('grpEngasgo',this)">Sim</button></div></div>
       </div>
-      <div style="background:#1a0a0a;border:1px solid #3a1515;border-radius:3px;padding:10px 12px;margin-top:4px;">
-        <div style="font-size:10px;color:var(--red-light);text-transform:uppercase;letter-spacing:.8px;font-weight:bold;margin-bottom:7px;">⚠ Sinais de alerta — marque se presentes</div>
+      <div style="background:var(--red-soft);border:1.5px solid var(--red-mid);border-radius:var(--radius-sm);padding:12px 14px;margin-top:4px;">
+        <div style="font-size:11px;color:var(--red);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;">⚠ Sinais de alerta</div>
         <div class="btn-group">
           <button class="sinais-alerta-btn" onclick="this.classList.toggle('ativo')">Tosse com cianose ou apneia</button>
           <button class="sinais-alerta-btn" onclick="this.classList.toggle('ativo')">Hemoptise</button>
@@ -529,13 +1642,10 @@ input.data-input{font-family:'Courier New',monospace;letter-spacing:1px;}
       </div>
     </div>
     <div class="sep"></div>
-    <!-- SIBILÂNCIA -->
     <div class="secao-label">Sibilância / Chiado</div>
-    <div class="cg3" style="margin-bottom:6px;">
-      <div class="campo"><label>Presença</label><div class="btn-group" id="grpSibilancia5"><button class="btn-sel" onclick="selecionarUnico('grpSibilancia5',this);toggleSintoma('sibilancia',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpSibilancia5',this);toggleSintoma('sibilancia',true)">Presente</button></div></div>
-    </div>
+    <div class="btn-group" id="grpSibilancia5" style="margin-bottom:10px;"><button class="btn-sel" onclick="selecionarUnico('grpSibilancia5',this);toggleSintoma('sibilancia',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpSibilancia5',this);toggleSintoma('sibilancia',true)">Presente</button></div>
     <div id="detalheSibilancia" style="display:none;animation:slideDown .2s ease;">
-      <div class="cg3">
+      <div class="g3">
         <div class="campo"><label>Data de início</label><input type="text" id="dataSibilancia" class="data-input" placeholder="DD/MM/AAAA" maxlength="10" oninput="mascaraData(this)"></div>
         <div class="campo"><label>Episódio</label><div class="btn-group" id="grpEpSib"><button class="btn-sel" onclick="selecionarUnico('grpEpSib',this)">Primeiro episódio</button><button class="btn-sel" onclick="selecionarUnico('grpEpSib',this)">Recorrente</button></div></div>
         <div class="campo"><label>Fase</label><div class="btn-group" id="grpFaseSib"><button class="btn-sel" onclick="selecionarUnico('grpFaseSib',this)">Expiratório apenas</button><button class="btn-sel" onclick="selecionarUnico('grpFaseSib',this)">Inspiratório e expiratório</button><button class="btn-sel" onclick="selecionarUnico('grpFaseSib',this)">Audível sem estetoscópio</button></div></div>
@@ -544,13 +1654,10 @@ input.data-input{font-family:'Courier New',monospace;letter-spacing:1px;}
       </div>
     </div>
     <div class="sep"></div>
-    <!-- DISPNEIA -->
     <div class="secao-label">Dispneia</div>
-    <div class="cg3">
-      <div class="campo"><label>Presença</label><div class="btn-group" id="grpDispneia"><button class="btn-sel" onclick="selecionarUnico('grpDispneia',this);toggleSintoma('dispneia',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpDispneia',this);toggleSintoma('dispneia',true)">Presente</button></div></div>
-    </div>
+    <div class="btn-group" id="grpDispneia" style="margin-bottom:10px;"><button class="btn-sel" onclick="selecionarUnico('grpDispneia',this);toggleSintoma('dispneia',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpDispneia',this);toggleSintoma('dispneia',true)">Presente</button></div>
     <div id="detalheDispneia" style="display:none;animation:slideDown .2s ease;">
-      <div class="cg3" style="margin-top:10px;">
+      <div class="g3" style="margin-top:10px;">
         <div class="campo"><label>Início</label><div class="btn-group" id="grpInicioDisp"><button class="btn-sel" onclick="selecionarUnico('grpInicioDisp',this)">Súbito</button><button class="btn-sel" onclick="selecionarUnico('grpInicioDisp',this)">Progressivo</button></div></div>
         <div class="campo"><label>Consegue se alimentar</label><div class="btn-group" id="grpAlimDisp"><button class="btn-sel" onclick="selecionarUnico('grpAlimDisp',this)">Sim</button><button class="btn-sel" onclick="selecionarUnico('grpAlimDisp',this)">Com dificuldade</button><button class="btn-sel" onclick="selecionarUnico('grpAlimDisp',this)">Não</button></div></div>
         <div class="campo"><label>Posição de alívio</label><div class="btn-group" id="grpPosDisp"><button class="btn-sel" onclick="selecionarUnico('grpPosDisp',this)">Nenhuma</button><button class="btn-sel" onclick="selecionarUnico('grpPosDisp',this)">Semi-sentado</button><button class="btn-sel" onclick="selecionarUnico('grpPosDisp',this)">Tripé</button></div></div>
@@ -559,113 +1666,107 @@ input.data-input{font-family:'Courier New',monospace;letter-spacing:1px;}
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
+<!-- ═══════════════════════════════════════
      BLOCO 6 — SINTOMAS ASSOCIADOS
-══════════════════════════════════════════════════ -->
-<div class="bloco" id="bloco6">
-  <div class="bloco-titulo"><span class="bloco-num">06</span>Sintomas Associados</div>
-  <div class="bloco-body">
-    <div class="cg3">
-      <!-- Dor de garganta -->
-      <div><div class="secao-label">Dor de garganta</div><div class="btn-group" id="grpGarganta" style="margin-bottom:7px;"><button class="btn-sel" onclick="selecionarUnico('grpGarganta',this);toggleSintoma('garganta',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpGarganta',this);toggleSintoma('garganta',true)">Presente</button></div>
+═══════════════════════════════════════ -->
+<div class="section" id="bloco6">
+  <div class="section-header">
+    <div class="section-icon si-purple">🔍</div>
+    <div><div class="section-title">Sintomas Associados</div><div class="section-subtitle">Garganta · Ouvido · Pele · Digestivo</div></div>
+    <div class="section-badge">Bloco 06</div>
+  </div>
+  <div class="section-body">
+    <div class="g3">
+      <div><div class="secao-label">Dor de garganta</div><div class="btn-group" id="grpGarganta" style="margin-bottom:8px;"><button class="btn-sel" onclick="selecionarUnico('grpGarganta',this);toggleSintoma('garganta',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpGarganta',this);toggleSintoma('garganta',true)">Presente</button></div>
       <div id="detalheGarganta" style="display:none;animation:slideDown .2s ease;">
-        <div class="campo" style="margin-bottom:7px;"><label>Intensidade</label><div class="btn-group" id="grpIntGarg"><button class="btn-sel" onclick="selecionarUnico('grpIntGarg',this)">Leve</button><button class="btn-sel" onclick="selecionarUnico('grpIntGarg',this)">Moderada</button><button class="btn-sel" onclick="selecionarUnico('grpIntGarg',this)">Grave</button></div></div>
-        <div class="campo" style="margin-bottom:7px;"><label>Dif. para engolir</label><div class="btn-group" id="grpDisfagia"><button class="btn-sel" onclick="selecionarUnico('grpDisfagia',this)">Não</button><button class="btn-sel" onclick="selecionarUnico('grpDisfagia',this)">Sim</button></div></div>
+        <div class="campo" style="margin-bottom:8px;"><label>Intensidade</label><div class="btn-group" id="grpIntGarg"><button class="btn-sel" onclick="selecionarUnico('grpIntGarg',this)">Leve</button><button class="btn-sel" onclick="selecionarUnico('grpIntGarg',this)">Moderada</button><button class="btn-sel" onclick="selecionarUnico('grpIntGarg',this)">Grave</button></div></div>
+        <div class="campo" style="margin-bottom:8px;"><label>Dificuldade para engolir</label><div class="btn-group" id="grpDisfagia"><button class="btn-sel" onclick="selecionarUnico('grpDisfagia',this)">Não</button><button class="btn-sel" onclick="selecionarUnico('grpDisfagia',this)">Sim</button></div></div>
         <div class="campo"><label>Exsudato</label><div class="btn-group" id="grpExsudato"><button class="btn-sel" onclick="selecionarUnico('grpExsudato',this)">Não</button><button class="btn-sel" onclick="selecionarUnico('grpExsudato',this)">Sim</button></div></div>
       </div></div>
-      <!-- Otalgia -->
-      <div><div class="secao-label">Otalgia</div><div class="btn-group" id="grpOtalgia" style="margin-bottom:7px;"><button class="btn-sel" onclick="selecionarUnico('grpOtalgia',this);toggleSintoma('otalgia',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpOtalgia',this);toggleSintoma('otalgia',true)">Presente</button></div>
+      <div><div class="secao-label">Otalgia</div><div class="btn-group" id="grpOtalgia" style="margin-bottom:8px;"><button class="btn-sel" onclick="selecionarUnico('grpOtalgia',this);toggleSintoma('otalgia',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpOtalgia',this);toggleSintoma('otalgia',true)">Presente</button></div>
       <div id="detalheOtalgia" style="display:none;animation:slideDown .2s ease;">
-        <div class="campo" style="margin-bottom:7px;"><label>Ouvido</label><div class="btn-group" id="grpOuvido"><button class="btn-sel" onclick="selecionarUnico('grpOuvido',this)">Direito</button><button class="btn-sel" onclick="selecionarUnico('grpOuvido',this)">Esquerdo</button><button class="btn-sel" onclick="selecionarUnico('grpOuvido',this)">Bilateral</button></div></div>
-        <div class="campo" style="margin-bottom:7px;"><label>Otorreia</label><div class="btn-group" id="grpOtorreia"><button class="btn-sel" onclick="selecionarUnico('grpOtorreia',this)">Não</button><button class="btn-sel" onclick="selecionarUnico('grpOtorreia',this)">Sim</button></div></div>
+        <div class="campo" style="margin-bottom:8px;"><label>Ouvido</label><div class="btn-group" id="grpOuvido"><button class="btn-sel" onclick="selecionarUnico('grpOuvido',this)">Direito</button><button class="btn-sel" onclick="selecionarUnico('grpOuvido',this)">Esquerdo</button><button class="btn-sel" onclick="selecionarUnico('grpOuvido',this)">Bilateral</button></div></div>
+        <div class="campo" style="margin-bottom:8px;"><label>Otorreia</label><div class="btn-group" id="grpOtorreia"><button class="btn-sel" onclick="selecionarUnico('grpOtorreia',this)">Não</button><button class="btn-sel" onclick="selecionarUnico('grpOtorreia',this)">Sim</button></div></div>
         <div class="campo"><label>Otites prévias</label><div class="btn-group" id="grpOtitePrev"><button class="btn-sel" onclick="selecionarUnico('grpOtitePrev',this)">Não</button><button class="btn-sel" onclick="selecionarUnico('grpOtitePrev',this)">Sim</button></div></div>
       </div></div>
-      <!-- Exantema -->
-      <div><div class="secao-label">Exantema</div><div class="btn-group" id="grpExantema" style="margin-bottom:7px;"><button class="btn-sel" onclick="selecionarUnico('grpExantema',this);toggleSintoma('exantema',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpExantema',this);toggleSintoma('exantema',true)">Presente</button></div>
+      <div><div class="secao-label">Exantema</div><div class="btn-group" id="grpExantema" style="margin-bottom:8px;"><button class="btn-sel" onclick="selecionarUnico('grpExantema',this);toggleSintoma('exantema',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpExantema',this);toggleSintoma('exantema',true)">Presente</button></div>
       <div id="detalheExantema" style="display:none;animation:slideDown .2s ease;">
-        <div class="campo" style="margin-bottom:7px;"><label>Tipo</label><div class="btn-group" id="grpTipoExant"><button class="btn-sel" onclick="selecionarUnico('grpTipoExant',this)">Macular</button><button class="btn-sel" onclick="selecionarUnico('grpTipoExant',this)">Papular</button><button class="btn-sel" onclick="selecionarUnico('grpTipoExant',this)">Maculopapular</button><button class="btn-sel" onclick="selecionarUnico('grpTipoExant',this)">Vesicular</button><button class="btn-sel" onclick="selecionarUnico('grpTipoExant',this)">Petequial</button></div></div>
-        <div class="campo" style="margin-bottom:7px;"><label>Distribuição</label><div class="btn-group" id="grpDistExant"><button class="btn-sel" onclick="selecionarUnico('grpDistExant',this)">Face</button><button class="btn-sel" onclick="selecionarUnico('grpDistExant',this)">Tronco</button><button class="btn-sel" onclick="selecionarUnico('grpDistExant',this)">Extremidades</button><button class="btn-sel" onclick="selecionarUnico('grpDistExant',this)">Generalizado</button></div></div>
+        <div class="campo" style="margin-bottom:8px;"><label>Tipo</label><div class="btn-group" id="grpTipoExant"><button class="btn-sel" onclick="selecionarUnico('grpTipoExant',this)">Macular</button><button class="btn-sel" onclick="selecionarUnico('grpTipoExant',this)">Papular</button><button class="btn-sel" onclick="selecionarUnico('grpTipoExant',this)">Maculopapular</button><button class="btn-sel" onclick="selecionarUnico('grpTipoExant',this)">Vesicular</button><button class="btn-sel" onclick="selecionarUnico('grpTipoExant',this)">Petequial</button></div></div>
+        <div class="campo" style="margin-bottom:8px;"><label>Distribuição</label><div class="btn-group" id="grpDistExant"><button class="btn-sel" onclick="selecionarUnico('grpDistExant',this)">Face</button><button class="btn-sel" onclick="selecionarUnico('grpDistExant',this)">Tronco</button><button class="btn-sel" onclick="selecionarUnico('grpDistExant',this)">Extremidades</button><button class="btn-sel" onclick="selecionarUnico('grpDistExant',this)">Generalizado</button></div></div>
         <div class="campo"><label>Prurido</label><div class="btn-group" id="grpPrurido"><button class="btn-sel" onclick="selecionarUnico('grpPrurido',this)">Não</button><button class="btn-sel" onclick="selecionarUnico('grpPrurido',this)">Sim</button></div></div>
       </div></div>
-      <!-- Vômito -->
-      <div><div class="secao-label">Vômito</div><div class="btn-group" id="grpVomito" style="margin-bottom:7px;"><button class="btn-sel" onclick="selecionarUnico('grpVomito',this);toggleSintoma('vomito',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpVomito',this);toggleSintoma('vomito',true)">Presente</button></div>
+      <div><div class="secao-label">Vômito</div><div class="btn-group" id="grpVomito" style="margin-bottom:8px;"><button class="btn-sel" onclick="selecionarUnico('grpVomito',this);toggleSintoma('vomito',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpVomito',this);toggleSintoma('vomito',true)">Presente</button></div>
       <div id="detalheVomito" style="display:none;animation:slideDown .2s ease;">
-        <div class="campo" style="margin-bottom:7px;"><label>Episódios nas últimas 24h</label><input type="number" id="numVomitos" placeholder="Nº" min="0" max="30" style="width:80px;"></div>
-        <div class="campo" style="margin-bottom:7px;"><label>Retém líquidos</label><div class="btn-group" id="grpRetemLiq"><button class="btn-sel" onclick="selecionarUnico('grpRetemLiq',this)">Sim</button><button class="btn-sel" onclick="selecionarUnico('grpRetemLiq',this)">Não</button></div></div>
+        <div class="campo" style="margin-bottom:8px;"><label>Episódios nas últimas 24h</label><input type="number" id="numVomitos" placeholder="Nº" min="0" max="30" style="width:80px;"></div>
+        <div class="campo" style="margin-bottom:8px;"><label>Retém líquidos</label><div class="btn-group" id="grpRetemLiq"><button class="btn-sel" onclick="selecionarUnico('grpRetemLiq',this)">Sim</button><button class="btn-sel" onclick="selecionarUnico('grpRetemLiq',this)">Não</button></div></div>
         <div class="campo"><label>Conteúdo</label><div class="btn-group" id="grpContVom"><button class="btn-sel" onclick="selecionarUnico('grpContVom',this)">Alimentar</button><button class="btn-sel" onclick="selecionarUnico('grpContVom',this)">Bilioso</button><button class="btn-sel" onclick="selecionarUnico('grpContVom',this)">Com sangue</button></div></div>
       </div></div>
-      <!-- Recusa alimentar -->
-      <div><div class="secao-label">Recusa alimentar</div><div class="btn-group" id="grpRecusa" style="margin-bottom:7px;"><button class="btn-sel" onclick="selecionarUnico('grpRecusa',this);toggleSintoma('recusa',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpRecusa',this);toggleSintoma('recusa',true)">Presente</button></div>
+      <div><div class="secao-label">Recusa alimentar</div><div class="btn-group" id="grpRecusa" style="margin-bottom:8px;"><button class="btn-sel" onclick="selecionarUnico('grpRecusa',this);toggleSintoma('recusa',false)">Ausente</button><button class="btn-sel" onclick="selecionarUnico('grpRecusa',this);toggleSintoma('recusa',true)">Presente</button></div>
       <div id="detalheRecusa" style="display:none;animation:slideDown .2s ease;">
-        <div class="campo" style="margin-bottom:7px;"><label>Grau</label><div class="btn-group" id="grpGrauRec"><button class="btn-sel" onclick="selecionarUnico('grpGrauRec',this)">Parcial</button><button class="btn-sel" onclick="selecionarUnico('grpGrauRec',this)">Total</button></div></div>
-        <div class="campo" style="margin-bottom:7px;"><label>Duração (horas)</label><input type="number" id="hrsRecusa" placeholder="Ex: 12" min="0" style="width:80px;"></div>
+        <div class="campo" style="margin-bottom:8px;"><label>Grau</label><div class="btn-group" id="grpGrauRec"><button class="btn-sel" onclick="selecionarUnico('grpGrauRec',this)">Parcial</button><button class="btn-sel" onclick="selecionarUnico('grpGrauRec',this)">Total</button></div></div>
+        <div class="campo" style="margin-bottom:8px;"><label>Duração (horas)</label><input type="number" id="hrsRecusa" placeholder="Ex: 12" min="0" style="width:80px;"></div>
         <div class="campo"><label>Sinais de desidratação</label><div class="btn-group" id="grpDesidr"><button class="btn-sel" onclick="selecionarUnico('grpDesidr',this)">Não</button><button class="btn-sel" onclick="selecionarUnico('grpDesidr',this)">Sim</button></div></div>
       </div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     BLOCO 7 — ESCORES CLÍNICOS
-══════════════════════════════════════════════════ -->
-<div class="bloco" id="bloco7">
-  <div class="bloco-titulo"><span class="bloco-num">07</span>Escores Clínicos</div>
-  <div class="bloco-body">
-    <div style="font-size:11px;color:var(--text-muted);font-style:italic;margin-bottom:14px;">Os escores abaixo são aplicáveis conforme o padrão clínico identificado. Preencha os itens pertinentes ao caso.</div>
-    <!-- GRSS -->
+<!-- ═══════════════════════════════════════
+     BLOCO 7 — ESCORES
+═══════════════════════════════════════ -->
+<div class="section" id="bloco7">
+  <div class="section-header">
+    <div class="section-icon si-warn">📊</div>
+    <div><div class="section-title">Escores Clínicos</div><div class="section-subtitle">GRSS · PRAM · Westley — preenchimento conforme o caso</div></div>
+    <div class="section-badge">Bloco 07</div>
+  </div>
+  <div class="section-body">
+    <div style="font-size:12px;color:var(--text-soft);margin-bottom:16px;">Preencha os itens pertinentes ao caso clínico.</div>
     <div class="escore-card" id="escoreGRSS">
-      <div class="escore-hd"><span>GRSS — Bronquiolite Aguda <span style="font-size:10px;font-weight:normal;color:var(--text-muted);">(válido até 12 meses)</span></span><span id="totalGRSS" style="font-size:18px;color:var(--gold);">—</span></div>
+      <div class="escore-hd"><span>GRSS — Bronquiolite Aguda <span style="font-size:11px;font-weight:400;color:var(--text-soft);">(válido até 12 meses)</span></span><span id="totalGRSS" style="font-size:20px;font-weight:700;color:var(--blue);">—</span></div>
       <div class="escore-body">
-        <div class="escore-item"><span class="escore-item-label">Frequência respiratória (ipm)<br><div class="btn-group" style="margin-top:5px;" id="grpGRSS_FR"><button class="btn-sel" onclick="selecionarEscore('grpGRSS_FR',this,0);calcGRSS()">&lt;40 (0)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_FR',this,1);calcGRSS()">40–59 (1)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_FR',this,2);calcGRSS()">60–79 (2)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_FR',this,3);calcGRSS()">≥80 (3)</button></div></span></div>
-        <div class="escore-item"><span class="escore-item-label">Saturação O₂ (%)<br><div class="btn-group" style="margin-top:5px;" id="grpGRSS_Sat"><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sat',this,0);calcGRSS()">≥95 (0)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sat',this,1);calcGRSS()">90–94 (1)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sat',this,2);calcGRSS()">85–89 (2)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sat',this,3);calcGRSS()">&lt;85 (3)</button></div></span></div>
-        <div class="escore-item"><span class="escore-item-label">Retrações<br><div class="btn-group" style="margin-top:5px;" id="grpGRSS_Ret"><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Ret',this,0);calcGRSS()">Ausentes (0)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Ret',this,1);calcGRSS()">Leves (1)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Ret',this,2);calcGRSS()">Moderadas (2)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Ret',this,3);calcGRSS()">Graves (3)</button></div></span></div>
-        <div class="escore-item"><span class="escore-item-label">Sibilância<br><div class="btn-group" style="margin-top:5px;" id="grpGRSS_Sib"><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sib',this,0);calcGRSS()">Ausente (0)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sib',this,1);calcGRSS()">Exp. final (1)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sib',this,2);calcGRSS()">Exp. inteira (2)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sib',this,3);calcGRSS()">Insp+Exp/silêncio (3)</button></div></span></div>
-        <div class="escore-total-box" id="totalBoxGRSS" style="display:none;">
-          <div class="escore-total-num" id="numGRSS">0</div>
-          <div><div class="escore-class" id="classGRSS">—</div><div style="font-size:10px;color:var(--text-muted);margin-top:3px;" id="condGRSS"></div></div>
-        </div>
+        <div class="escore-item">Frequência respiratória (ipm)<br><div class="btn-group" style="margin-top:8px;" id="grpGRSS_FR"><button class="btn-sel" onclick="selecionarEscore('grpGRSS_FR',this,0);calcGRSS()">&lt;40 (0)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_FR',this,1);calcGRSS()">40–59 (1)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_FR',this,2);calcGRSS()">60–79 (2)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_FR',this,3);calcGRSS()">≥80 (3)</button></div></div>
+        <div class="escore-item">Saturação O₂ (%)<br><div class="btn-group" style="margin-top:8px;" id="grpGRSS_Sat"><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sat',this,0);calcGRSS()">≥95 (0)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sat',this,1);calcGRSS()">90–94 (1)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sat',this,2);calcGRSS()">85–89 (2)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sat',this,3);calcGRSS()">&lt;85 (3)</button></div></div>
+        <div class="escore-item">Retrações<br><div class="btn-group" style="margin-top:8px;" id="grpGRSS_Ret"><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Ret',this,0);calcGRSS()">Ausentes (0)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Ret',this,1);calcGRSS()">Leves (1)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Ret',this,2);calcGRSS()">Moderadas (2)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Ret',this,3);calcGRSS()">Graves (3)</button></div></div>
+        <div class="escore-item">Sibilância<br><div class="btn-group" style="margin-top:8px;" id="grpGRSS_Sib"><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sib',this,0);calcGRSS()">Ausente (0)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sib',this,1);calcGRSS()">Exp. final (1)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sib',this,2);calcGRSS()">Exp. inteira (2)</button><button class="btn-sel" onclick="selecionarEscore('grpGRSS_Sib',this,3);calcGRSS()">Insp+Exp/silêncio (3)</button></div></div>
+        <div class="escore-total-box" id="totalBoxGRSS" style="display:none;"><div class="escore-total-num" id="numGRSS">0</div><div><div class="escore-class" id="classGRSS">—</div><div style="font-size:11px;color:var(--text-soft);margin-top:3px;" id="condGRSS"></div></div></div>
       </div>
     </div>
-    <!-- PRAM -->
     <div class="escore-card" id="escorePRAM">
-      <div class="escore-hd"><span>PRAM — Asma Aguda <span style="font-size:10px;font-weight:normal;color:var(--text-muted);">(2–17 anos)</span></span><span id="totalPRAM" style="font-size:18px;color:var(--gold);">—</span></div>
+      <div class="escore-hd"><span>PRAM — Asma Aguda <span style="font-size:11px;font-weight:400;color:var(--text-soft);">(2–17 anos)</span></span><span id="totalPRAM" style="font-size:20px;font-weight:700;color:var(--blue);">—</span></div>
       <div class="escore-body">
-        <div class="escore-item"><span class="escore-item-label">Sibilância<br><div class="btn-group" style="margin-top:5px;" id="grpPRAM_Sib"><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sib',this,0);calcPRAM()">Ausente (0)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sib',this,1);calcPRAM()">Exp. final (1)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sib',this,2);calcPRAM()">Exp. inteira (2)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sib',this,3);calcPRAM()">Insp+Exp (3)</button></div></span></div>
-        <div class="escore-item"><span class="escore-item-label">Entrada de ar<br><div class="btn-group" style="margin-top:5px;" id="grpPRAM_EA"><button class="btn-sel" onclick="selecionarEscore('grpPRAM_EA',this,0);calcPRAM()">Normal (0)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_EA',this,1);calcPRAM()">Dim. nas bases (1)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_EA',this,2);calcPRAM()">Dim. difusa (2)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_EA',this,3);calcPRAM()">Ausente/mínima (3)</button></div></span></div>
-        <div class="escore-item"><span class="escore-item-label">Contração de escalenos<br><div class="btn-group" style="margin-top:5px;" id="grpPRAM_Esc"><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Esc',this,0);calcPRAM()">Ausente (0)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Esc',this,2);calcPRAM()">Presente (2)</button></div></span></div>
-        <div class="escore-item"><span class="escore-item-label">Retração supraesternal<br><div class="btn-group" style="margin-top:5px;" id="grpPRAM_Sup"><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sup',this,0);calcPRAM()">Ausente (0)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sup',this,2);calcPRAM()">Presente (2)</button></div></span></div>
-        <div class="escore-item"><span class="escore-item-label">Saturação O₂<br><div class="btn-group" style="margin-top:5px;" id="grpPRAM_Sat"><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sat',this,0);calcPRAM()">≥95 (0)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sat',this,1);calcPRAM()">90–94 (1)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sat',this,2);calcPRAM()">&lt;90 (2)</button></div></span></div>
-        <div class="escore-total-box" id="totalBoxPRAM" style="display:none;">
-          <div class="escore-total-num" id="numPRAM">0</div>
-          <div><div class="escore-class" id="classPRAM">—</div><div style="font-size:10px;color:var(--text-muted);margin-top:3px;" id="condPRAM"></div></div>
-        </div>
+        <div class="escore-item">Sibilância<br><div class="btn-group" style="margin-top:8px;" id="grpPRAM_Sib"><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sib',this,0);calcPRAM()">Ausente (0)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sib',this,1);calcPRAM()">Exp. final (1)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sib',this,2);calcPRAM()">Exp. inteira (2)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sib',this,3);calcPRAM()">Insp+Exp (3)</button></div></div>
+        <div class="escore-item">Entrada de ar<br><div class="btn-group" style="margin-top:8px;" id="grpPRAM_EA"><button class="btn-sel" onclick="selecionarEscore('grpPRAM_EA',this,0);calcPRAM()">Normal (0)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_EA',this,1);calcPRAM()">Dim. nas bases (1)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_EA',this,2);calcPRAM()">Dim. difusa (2)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_EA',this,3);calcPRAM()">Ausente/mínima (3)</button></div></div>
+        <div class="escore-item">Contração de escalenos<br><div class="btn-group" style="margin-top:8px;" id="grpPRAM_Esc"><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Esc',this,0);calcPRAM()">Ausente (0)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Esc',this,2);calcPRAM()">Presente (2)</button></div></div>
+        <div class="escore-item">Retração supraesternal<br><div class="btn-group" style="margin-top:8px;" id="grpPRAM_Sup"><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sup',this,0);calcPRAM()">Ausente (0)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sup',this,2);calcPRAM()">Presente (2)</button></div></div>
+        <div class="escore-item">Saturação O₂<br><div class="btn-group" style="margin-top:8px;" id="grpPRAM_Sat"><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sat',this,0);calcPRAM()">≥95 (0)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sat',this,1);calcPRAM()">90–94 (1)</button><button class="btn-sel" onclick="selecionarEscore('grpPRAM_Sat',this,2);calcPRAM()">&lt;90 (2)</button></div></div>
+        <div class="escore-total-box" id="totalBoxPRAM" style="display:none;"><div class="escore-total-num" id="numPRAM">0</div><div><div class="escore-class" id="classPRAM">—</div><div style="font-size:11px;color:var(--text-soft);margin-top:3px;" id="condPRAM"></div></div></div>
       </div>
     </div>
-    <!-- WESTLEY -->
     <div class="escore-card" id="escoreWestley">
-      <div class="escore-hd"><span>Westley — Crupe <span style="font-size:10px;font-weight:normal;color:var(--text-muted);">(6 meses–6 anos)</span></span><span id="totalWestley" style="font-size:18px;color:var(--gold);">—</span></div>
+      <div class="escore-hd"><span>Westley — Crupe <span style="font-size:11px;font-weight:400;color:var(--text-soft);">(6 meses–6 anos)</span></span><span id="totalWestley" style="font-size:20px;font-weight:700;color:var(--blue);">—</span></div>
       <div class="escore-body">
-        <div class="escore-item"><span class="escore-item-label">Nível de consciência<br><div class="btn-group" style="margin-top:5px;" id="grpWest_NC"><button class="btn-sel" onclick="selecionarEscore('grpWest_NC',this,0);calcWestley()">Normal (0)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_NC',this,5);calcWestley()">Desorientado (5)</button></div></span></div>
-        <div class="escore-item"><span class="escore-item-label">Cianose<br><div class="btn-group" style="margin-top:5px;" id="grpWest_Ci"><button class="btn-sel" onclick="selecionarEscore('grpWest_Ci',this,0);calcWestley()">Ausente (0)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_Ci',this,4);calcWestley()">C/ agitação (4)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_Ci',this,5);calcWestley()">Em repouso (5)</button></div></span></div>
-        <div class="escore-item"><span class="escore-item-label">Estridor<br><div class="btn-group" style="margin-top:5px;" id="grpWest_Es"><button class="btn-sel" onclick="selecionarEscore('grpWest_Es',this,0);calcWestley()">Ausente (0)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_Es',this,1);calcWestley()">C/ agitação (1)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_Es',this,2);calcWestley()">Em repouso (2)</button></div></span></div>
-        <div class="escore-item"><span class="escore-item-label">Entrada de ar<br><div class="btn-group" style="margin-top:5px;" id="grpWest_EA"><button class="btn-sel" onclick="selecionarEscore('grpWest_EA',this,0);calcWestley()">Normal (0)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_EA',this,1);calcWestley()">Diminuída (1)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_EA',this,2);calcWestley()">Muito dim. (2)</button></div></span></div>
-        <div class="escore-item"><span class="escore-item-label">Retrações<br><div class="btn-group" style="margin-top:5px;" id="grpWest_Re"><button class="btn-sel" onclick="selecionarEscore('grpWest_Re',this,0);calcWestley()">Ausentes (0)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_Re',this,1);calcWestley()">Leves (1)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_Re',this,2);calcWestley()">Moderadas (2)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_Re',this,3);calcWestley()">Graves (3)</button></div></span></div>
-        <div class="escore-total-box" id="totalBoxWest" style="display:none;">
-          <div class="escore-total-num" id="numWest">0</div>
-          <div><div class="escore-class" id="classWest">—</div><div style="font-size:10px;color:var(--text-muted);margin-top:3px;" id="condWest"></div></div>
-        </div>
+        <div class="escore-item">Nível de consciência<br><div class="btn-group" style="margin-top:8px;" id="grpWest_NC"><button class="btn-sel" onclick="selecionarEscore('grpWest_NC',this,0);calcWestley()">Normal (0)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_NC',this,5);calcWestley()">Desorientado (5)</button></div></div>
+        <div class="escore-item">Cianose<br><div class="btn-group" style="margin-top:8px;" id="grpWest_Ci"><button class="btn-sel" onclick="selecionarEscore('grpWest_Ci',this,0);calcWestley()">Ausente (0)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_Ci',this,4);calcWestley()">C/ agitação (4)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_Ci',this,5);calcWestley()">Em repouso (5)</button></div></div>
+        <div class="escore-item">Estridor<br><div class="btn-group" style="margin-top:8px;" id="grpWest_Es"><button class="btn-sel" onclick="selecionarEscore('grpWest_Es',this,0);calcWestley()">Ausente (0)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_Es',this,1);calcWestley()">C/ agitação (1)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_Es',this,2);calcWestley()">Em repouso (2)</button></div></div>
+        <div class="escore-item">Entrada de ar<br><div class="btn-group" style="margin-top:8px;" id="grpWest_EA"><button class="btn-sel" onclick="selecionarEscore('grpWest_EA',this,0);calcWestley()">Normal (0)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_EA',this,1);calcWestley()">Diminuída (1)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_EA',this,2);calcWestley()">Muito dim. (2)</button></div></div>
+        <div class="escore-item">Retrações<br><div class="btn-group" style="margin-top:8px;" id="grpWest_Re"><button class="btn-sel" onclick="selecionarEscore('grpWest_Re',this,0);calcWestley()">Ausentes (0)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_Re',this,1);calcWestley()">Leves (1)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_Re',this,2);calcWestley()">Moderadas (2)</button><button class="btn-sel" onclick="selecionarEscore('grpWest_Re',this,3);calcWestley()">Graves (3)</button></div></div>
+        <div class="escore-total-box" id="totalBoxWest" style="display:none;"><div class="escore-total-num" id="numWest">0</div><div><div class="escore-class" id="classWest">—</div><div style="font-size:11px;color:var(--text-soft);margin-top:3px;" id="condWest"></div></div></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
+<!-- ═══════════════════════════════════════
      BLOCO 8 — EXAME FÍSICO
-══════════════════════════════════════════════════ -->
-<div class="bloco" id="bloco8">
-  <div class="bloco-titulo"><span class="bloco-num">08</span>Exame Físico</div>
-  <div class="bloco-body">
-    <div style="font-size:11px;color:var(--text-muted);font-style:italic;margin-bottom:12px;">Marcado = presente no prontuário. Não marcado = ausente.</div>
+═══════════════════════════════════════ -->
+<div class="section" id="bloco8">
+  <div class="section-header">
+    <div class="section-icon si-green">🩺</div>
+    <div><div class="section-title">Exame Físico</div><div class="section-subtitle">Marcado = presente · Não marcado = ausente no prontuário</div></div>
+    <div class="section-badge">Bloco 08</div>
+  </div>
+  <div class="section-body">
     <div class="ef-grupo"><div class="ef-grupo-titulo">Estado Geral</div><div class="btn-group" id="grpEG"><button class="btn-sel" onclick="this.classList.toggle('ativo')">Bom estado geral</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Regular estado geral</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Mau estado geral</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Corado</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Hipocorado</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Hidratado</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Desidratado</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Febril ao exame</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Afebril ao exame</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Ativo e reativo</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Prostrado</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Irritado ao exame</button></div></div>
     <div class="ef-grupo"><div class="ef-grupo-titulo">Respiratório</div><div class="btn-group" id="grpEFResp"><button class="btn-sel" onclick="this.classList.toggle('ativo')">Murmúrio vesicular presente bilateralmente</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Murmúrio vesicular diminuído</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Sibilos expiratórios</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Sibilos inspiratórios</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Crepitações</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Roncos</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Estridor</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Tiragem intercostal</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Batimento de asa nasal</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Uso de musculatura acessória</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Gemência</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Taquipneia</button></div></div>
     <div class="ef-grupo"><div class="ef-grupo-titulo">ORL</div><div class="btn-group" id="grpEFORL"><button class="btn-sel" onclick="this.classList.toggle('ativo')">Orofaringe hiperemiada</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Amígdalas hipertróficas</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Exsudato amigdaliano</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Membrana timpânica hiperemiada</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Membrana timpânica íntegra</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Linfonodos cervicais palpáveis</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Secreção nasal hialina</button><button class="btn-sel" onclick="this.classList.toggle('ativo')">Secreção nasal purulenta</button></div></div>
@@ -675,23 +1776,31 @@ input.data-input{font-family:'Courier New',monospace;letter-spacing:1px;}
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
+<!-- ═══════════════════════════════════════
      BLOCO 9 — LINHA DO TEMPO
-══════════════════════════════════════════════════ -->
-<div class="bloco" id="bloco9">
-  <div class="bloco-titulo"><span class="bloco-num">09</span>Linha do Tempo da Evolução</div>
-  <div class="bloco-body">
-    <div class="timeline-wrapper"><svg id="svgTimeline" height="110"><text x="10" y="55" font-family="Georgia,serif" font-size="12" fill="#8ba3c7">Preencha a data de início da febre ou dos sintomas para gerar a linha do tempo.</text></svg></div>
-    <div style="background:#071020;border:1px solid var(--border);border-radius:3px;padding:10px 13px;font-size:11px;color:var(--text-muted);line-height:1.7;" id="resumoTimeline">O resumo da evolução aparecerá aqui após o preenchimento dos sintomas.</div>
+═══════════════════════════════════════ -->
+<div class="section" id="bloco9">
+  <div class="section-header">
+    <div class="section-icon si-blue">📅</div>
+    <div><div class="section-title">Linha do Tempo da Evolução</div><div class="section-subtitle">Gerada automaticamente a partir das datas preenchidas</div></div>
+    <div class="section-badge">Bloco 09</div>
+  </div>
+  <div class="section-body">
+    <div class="timeline-wrapper"><svg id="svgTimeline" height="110" width="100%"><text x="10" y="55" font-family="Inter,sans-serif" font-size="13" fill="#94a3b8">Preencha a data de início da febre para gerar a linha do tempo.</text></svg></div>
+    <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;font-size:13px;color:var(--text-mid);" id="resumoTimeline">O resumo da evolução aparecerá aqui após o preenchimento dos sintomas.</div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
+<!-- ═══════════════════════════════════════
      BLOCO 10 — GERAÇÃO
-══════════════════════════════════════════════════ -->
-<div class="bloco" id="bloco10">
-  <div class="bloco-titulo"><span class="bloco-num">10</span>Geração de Documentos</div>
-  <div class="bloco-body">
+═══════════════════════════════════════ -->
+<div class="section" id="bloco10">
+  <div class="section-header">
+    <div class="section-icon si-blue">⚡</div>
+    <div><div class="section-title">Geração de Documentos</div><div class="section-subtitle">Prontuário médico e orientações para os pais</div></div>
+    <div class="section-badge">Bloco 10</div>
+  </div>
+  <div class="section-body">
     <button class="btn-gerar-principal" id="btnGerarProntuario" onclick="gerarProntuario()">📋 Gerar Prontuário Médico</button>
     <div id="resultadoProntuario" style="display:none;">
       <div class="resultado-box">
@@ -699,16 +1808,15 @@ input.data-input{font-family:'Courier New',monospace;letter-spacing:1px;}
         <div class="resultado-texto" id="textoProntuario"></div>
       </div>
     </div>
-    <div style="height:12px;"></div>
+    <div style="height:14px;"></div>
     <button class="btn-imprimir" onclick="gerarImpressao()">🖨️ Imprimir Orientações para os Pais</button>
   </div>
 </div>
 
 </div><!-- /formularioCompleto -->
+</div><!-- /container -->
 
-<!-- ══════════════════════════════════════════════════
-     PÁGINA DE IMPRESSÃO
-══════════════════════════════════════════════════ -->
+<!-- PÁGINA IMPRESSÃO -->
 <div id="paginaImpressao"></div>
 
 <!-- STATUS BAR -->
@@ -720,32 +1828,26 @@ input.data-input{font-family:'Courier New',monospace;letter-spacing:1px;}
   <span id="stFebre">Febre: —</span>
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════
+     JAVASCRIPT — IDÊNTICO AO ORIGINAL
+═══════════════════════════════════════ -->
 <script>
 "use strict";
 var API_URL = 'https://pediform.onrender.com/api/claude';
 
-/* ── RELÓGIO ── */
 function atualizarRelogio(){var a=new Date();document.getElementById('relogioHeader').textContent=a.toLocaleString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'});}
 atualizarRelogio();setInterval(atualizarRelogio,1000);
 
-/* ── MÁSCARAS ── */
 function mascaraData(i){var v=i.value.replace(/\D/g,'');if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);if(v.length>5)v=v.slice(0,5)+'/'+v.slice(5,9);i.value=v;}
 function mascaraHora(i){var v=i.value.replace(/\D/g,'');if(v.length>2)v=v.slice(0,2)+':'+v.slice(2,4);i.value=v;}
 function preencherAgora(id){var a=new Date();document.getElementById(id).value=String(a.getHours()).padStart(2,'0')+':'+String(a.getMinutes()).padStart(2,'0');}
 function parseData(s){var p=s.split('/');if(p.length!==3||p[2].length!==4)return null;var d=new Date(+p[2],+p[1]-1,+p[0]);return isNaN(d)?null:d;}
 
-/* ── UTILITÁRIOS ── */
 function selecionarUnico(gId,btn){var g=document.getElementById(gId);if(!g)return;g.querySelectorAll('.btn-sel').forEach(function(b){b.classList.remove('ativo','ativo-red','ativo-green','ativo-warn');});btn.classList.add('ativo');}
 function selecionarEscore(gId,btn,pts){selecionarUnico(gId,btn);btn.dataset.pts=pts;}
 function getValGrupo(gId){var b=document.querySelector('#'+gId+' .btn-sel.ativo');return b?b.textContent.trim():null;}
 function getAtivos(gId){var bs=document.querySelectorAll('#'+gId+' .btn-sel.ativo, #'+gId+' .btn-achado.ativo, #'+gId+' .sinais-alerta-btn.ativo');var r=[];bs.forEach(function(b){r.push(b.textContent.trim());});return r;}
 
-/* ══════════════════════════════════════════
-   PAT
-══════════════════════════════════════════ */
 var estadoPAT={apar:null,resp:null,circ:null};
 var mapaPAT={
   apar:{N:'btnAparN',A:'btnAparA',ach:'achApar',svg:'triApar',card:'compApar'},
@@ -764,11 +1866,11 @@ function selecionarPAT(comp,val){
   if(val==='normal'){
     bN.classList.add('normal-ativo');card.classList.add('normal');
     ach.style.display='none';
-    face.setAttribute('fill','url(#gNormal)');face.setAttribute('stroke','#27ae60');
+    face.setAttribute('fill','url(#gNormal)');face.setAttribute('stroke','#86efac');
   } else {
     bA.classList.add('anormal-ativo');card.classList.add('anormal');
     ach.style.display='block';
-    face.setAttribute('fill','url(#gAnormal)');face.setAttribute('stroke','#e74c3c');
+    face.setAttribute('fill','url(#gAnormal)');face.setAttribute('stroke','#fca5a5');
   }
   calcularPAT();
 }
@@ -790,8 +1892,11 @@ function calcularPAT(){
     ico.textContent='⏳';niv.className='pat-class-nivel nivel-pendente';
     niv.textContent='Avaliação incompleta ('+av+'/3)';
     dsc.textContent='Avalie os três componentes para liberar o próximo passo.';
-    pts.textContent='—';ctr.setAttribute('fill','#2a5298');
-    document.getElementById('stPAT').textContent='PAT: incompleto';return;
+    pts.textContent='—';pts.style.color='var(--text-soft)';
+    ctr.setAttribute('fill','#93c5fd');
+    document.getElementById('stPAT').textContent='PAT: incompleto';
+    document.getElementById('stPAT').className='';
+    return;
   }
   pts.textContent=an;sd.style.display='block';
   setTimeout(function(){sd.scrollIntoView({behavior:'smooth',block:'nearest'});},200);
@@ -799,48 +1904,36 @@ function calcularPAT(){
     cls.classList.add('estavel');ico.textContent='✅';
     niv.className='pat-class-nivel nivel-estavel';niv.textContent='ESTÁVEL';
     dsc.textContent='Todos os componentes normais. Paciente sem comprometimento imediato.';
-    ctr.setAttribute('fill','#27ae60');de.style.display='block';
-    document.getElementById('stPAT').style.color='var(--success)';
-    document.getElementById('stPAT').textContent='PAT: ESTÁVEL';
-    document.getElementById('patStatusHeader').textContent='ESTÁVEL';
-    document.getElementById('patStatusHeader').style.color='var(--success)';
+    pts.style.color='var(--green)';ctr.setAttribute('fill','#4ade80');de.style.display='block';
+    document.getElementById('stPAT').textContent='PAT: ESTÁVEL';document.getElementById('stPAT').className='ok';
+    document.getElementById('patStatusHeader').textContent='ESTÁVEL';document.getElementById('patStatusHeader').style.color='var(--green)';
   } else if(an===1){
     cls.classList.add('atencao');ico.textContent='⚠️';
     niv.className='pat-class-nivel nivel-atencao';niv.textContent='ATENÇÃO';
     dsc.textContent='Um componente anormal. Avaliação prioritária.';
-    ctr.setAttribute('fill','var(--warn)');da.style.display='block';
-    document.getElementById('stPAT').style.color='var(--warn)';
-    document.getElementById('stPAT').textContent='PAT: ⚠ ATENÇÃO';
-    document.getElementById('patStatusHeader').textContent='ATENÇÃO';
-    document.getElementById('patStatusHeader').style.color='var(--warn)';
+    pts.style.color='var(--warn)';ctr.setAttribute('fill','#fbbf24');da.style.display='block';
+    document.getElementById('stPAT').textContent='PAT: ATENÇÃO';document.getElementById('stPAT').className='warn';
+    document.getElementById('patStatusHeader').textContent='ATENÇÃO';document.getElementById('patStatusHeader').style.color='var(--warn)';
   } else {
     cls.classList.add('critico');ico.textContent='🚨';
     niv.className='pat-class-nivel nivel-critico';niv.textContent='CRÍTICO';
     dsc.textContent=an===3?'Três componentes anormais. Parada iminente. Intervenção imediata.':'Dois componentes anormais. Risco elevado. Estabilização imediata.';
-    ctr.setAttribute('fill','var(--red-light)');da.style.display='block';
-    document.getElementById('stPAT').style.color='var(--red-light)';
-    document.getElementById('stPAT').textContent='PAT: 🚨 CRÍTICO';
-    document.getElementById('patStatusHeader').textContent='CRÍTICO';
-    document.getElementById('patStatusHeader').style.color='var(--red-light)';
+    pts.style.color='var(--red)';ctr.setAttribute('fill','#f87171');da.style.display='block';
+    document.getElementById('stPAT').textContent='PAT: CRÍTICO';document.getElementById('stPAT').className='crit';
+    document.getElementById('patStatusHeader').textContent='CRÍTICO';document.getElementById('patStatusHeader').style.color='var(--red)';
   }
 }
 
-/* ══════════════════════════════════════════
-   EMERGÊNCIA
-══════════════════════════════════════════ */
 function gerarEmergencia(){
   var nome=document.getElementById('emergNome').value.trim()||'Não informado';
   var idN=document.getElementById('emergIdadeNum').value;
   var idU=document.getElementById('emergIdadeUnid').value;
   var pes=document.getElementById('emergPeso').value;
-  var mapA={apar:'achadosApar',resp:'achadosResp',circ:'achadosCirc'};
-  /* usar IDs corretos dos achados do PAT */
   var mapAch={apar:'achApar',resp:'achResp',circ:'achCirc'};
   var mapRot={apar:'APARÊNCIA',resp:'TRABALHO RESPIRATÓRIO',circ:'CIRCULAÇÃO À PELE'};
   var desc='',an=0;
   ['apar','resp','circ'].forEach(function(c){
-    if(estadoPAT[c]==='anormal'){
-      an++;
+    if(estadoPAT[c]==='anormal'){an++;
       var bts=document.querySelectorAll('#'+mapAch[c]+' .btn-achado.ativo');
       var lista=[];bts.forEach(function(b){lista.push(b.textContent.trim());});
       desc+=mapRot[c]+' ANORMAL'+(lista.length>0?': '+lista.join(', '):'')+'. ';
@@ -852,15 +1945,9 @@ function gerarEmergencia(){
   var divR=document.getElementById('resultadoEmerg'),divT=document.getElementById('textoEmerg');
   divR.style.display='block';divT.innerHTML='<div style="padding:20px;text-align:center;"><span class="spinner"></span> Processando...</div>';
   var btn=document.getElementById('btnGerarEmerg');btn.disabled=true;btn.textContent='Gerando...';
-  chamarAPI(prompt,function(txt){
-    divT.textContent=txt;btn.disabled=false;btn.textContent='🚨 Gerar Conduta de Emergência';
-    divR.scrollIntoView({behavior:'smooth',block:'start'});
-  });
+  chamarAPI(prompt,function(txt){divT.textContent=txt;btn.disabled=false;btn.textContent='🚨 Gerar Conduta de Emergência';divR.scrollIntoView({behavior:'smooth',block:'start'});});
 }
 
-/* ══════════════════════════════════════════
-   BLOCO 1 — IDENTIFICAÇÃO
-══════════════════════════════════════════ */
 var faixaNeonatal=false;
 function classificarIdade(){
   var num=parseFloat(document.getElementById('pacIdadeNum').value);
@@ -881,37 +1968,18 @@ function classificarIdade(){
   document.getElementById('secaoNeonatal').style.display=dias<=365?'block':'none';
   document.getElementById('stIdade').textContent='Idade: '+num+' '+uni;
 }
-function classificarIG(){
-  var ig=parseFloat(document.getElementById('pacIG').value);
-  var b=document.getElementById('badgeIG');
-  if(isNaN(ig)){b.className='badge b-vz';b.textContent='Informe a IG';return;}
-  var f='',cl='';
-  if(ig<28){f='Prematuro extremo (<28sem)';cl='b-np';}
-  else if(ig<=31){f='Muito prematuro (28–31sem)';cl='b-nt';}
-  else if(ig<=33){f='Prematuro moderado (32–33sem)';cl='b-lm';}
-  else if(ig<=36){f='Prematuro tardio (34–36sem)';cl='b-lM';}
-  else{f='A termo (≥37sem)';cl='b-pe';}
-  b.className='badge '+cl;b.textContent=f;
-}
+function classificarIG(){var ig=parseFloat(document.getElementById('pacIG').value);var b=document.getElementById('badgeIG');if(isNaN(ig)){b.className='badge b-vz';b.textContent='Informe a IG';return;}var f='',cl='';if(ig<28){f='Prematuro extremo (<28sem)';cl='b-np';}else if(ig<=31){f='Muito prematuro (28–31sem)';cl='b-nt';}else if(ig<=33){f='Prematuro moderado (32–33sem)';cl='b-lm';}else if(ig<=36){f='Prematuro tardio (34–36sem)';cl='b-lM';}else{f='A termo (≥37sem)';cl='b-pe';}b.className='badge '+cl;b.textContent=f;}
 function togglePrematuridade(){var a=document.querySelector('#grpPrematuridade .btn-sel.ativo');var c=document.getElementById('campoIG');if(c)c.style.display=(a&&a.textContent==='Sim')?'flex':'none';}
 function toggleCardiopatia(){var a=document.querySelector('#grpCardiopatia .btn-sel.ativo');var c=document.getElementById('campoCardioSpec');if(c)c.style.display=(a&&a.textContent==='Sim')?'flex':'none';}
 function verificarOutro(){var a=document.querySelector('#grpRelata .btn-sel.ativo');var c=document.getElementById('campoOutroRelata');if(c)c.style.display=(a&&a.textContent==='Outro')?'block':'none';}
-function sincronizarPeso(){
-  var v=document.getElementById('pacPeso').value;
-  document.getElementById('pesoPacFeb').value=v;
-  document.getElementById('pesoRef').textContent=v||'—';
-  document.getElementById('stPeso').textContent='Peso: '+(v?v+' kg':'—');
-}
+function sincronizarPeso(){var v=document.getElementById('pacPeso').value;document.getElementById('pesoPacFeb').value=v;document.getElementById('pesoRef').textContent=v||'—';document.getElementById('stPeso').textContent='Peso: '+(v?v+' kg':'—');}
 function atualizarResumoIdent(){}
 
-/* ══════════════════════════════════════════
-   BLOCO 2 — CONTEXTO
-══════════════════════════════════════════ */
 (function gerarBotoes(){
   var gr=document.getElementById('grpReentradas');
-  for(var i=0;i<=10;i++){(function(n){var b=document.createElement('button');b.className='btn-num'+(n===0?' zero':'');b.textContent=n;b.onclick=function(){selecionarNumContexto('grpReentradas','contReentradas',n,b,'reent')};gr.appendChild(b);})(i);}
+  for(var i=0;i<=10;i++){(function(n){var b=document.createElement('button');b.className='btn-num'+(n===0?' zero':'');b.textContent=n;b.onclick=function(){selecionarNumContexto('grpReentradas','contReentradas',n,b,'reent');};gr.appendChild(b);})(i);}
   var gi=document.getElementById('grpInternacoes');
-  for(var j=0;j<=5;j++){(function(n){var b=document.createElement('button');b.className='btn-num'+(n===0?' zero':'');b.textContent=n;b.onclick=function(){selecionarNumContexto('grpInternacoes','contInternacoes',n,b,'int')};gi.appendChild(b);})(j);}
+  for(var j=0;j<=5;j++){(function(n){var b=document.createElement('button');b.className='btn-num'+(n===0?' zero':'');b.textContent=n;b.onclick=function(){selecionarNumContexto('grpInternacoes','contInternacoes',n,b,'int');};gi.appendChild(b);})(j);}
 })();
 function selecionarNumContexto(grpId,contId,n,btn,tipo){
   document.querySelectorAll('#'+grpId+' .btn-num').forEach(function(b){b.classList.remove('ativo');});
@@ -924,52 +1992,32 @@ function selecionarNumContexto(grpId,contId,n,btn,tipo){
 }
 function criarCardReent(n){
   var d=document.createElement('div');d.className='card-visita';
-  d.innerHTML='<div class="card-hd"><span class="card-badge">'+n+'ª visita</span><span style="font-size:11px;color:var(--gold);font-weight:bold;">Reentrada ao PS</span></div>'+
-    '<div class="card-body-g g3">'+
-    '<div class="campo"><label>Data</label><input type="text" class="data-input" placeholder="DD/MM/AAAA" maxlength="10" oninput="mascaraData(this)"></div>'+
+  d.innerHTML='<div class="card-hd"><span class="card-badge">'+n+'ª visita</span><span style="font-size:12px;font-weight:600;color:var(--text-mid);">Reentrada ao PS</span></div>'+
+    '<div class="card-body-g g3"><div class="campo"><label>Data</label><input type="text" class="data-input" placeholder="DD/MM/AAAA" maxlength="10" oninput="mascaraData(this)"></div>'+
     '<div class="campo"><label>Queixa principal</label><input type="text" placeholder="Ex: febre e tosse há 3 dias..."></div>'+
-    '<div class="campo"><label>Conduta realizada</label><input type="text" placeholder="Ex: nebulização, antitérmico, alta..."></div>'+
-    '</div>';
+    '<div class="campo"><label>Conduta realizada</label><input type="text" placeholder="Ex: nebulização, alta..."></div></div>';
   return d;
 }
 function criarCardInt(n){
-  var id='int'+n;
-  var d=document.createElement('div');d.className='card-int';
-  d.innerHTML='<div class="card-hd"><span class="card-badge">'+n+'ª internação</span><span style="font-size:11px;color:var(--gold);font-weight:bold;">Internação Respiratória</span></div>'+
-    '<div class="card-body-g g4">'+
-    '<div class="campo"><label>Data entrada</label><input type="text" class="data-input" placeholder="DD/MM/AAAA" maxlength="10" oninput="mascaraData(this)"></div>'+
+  var id='int'+n;var d=document.createElement('div');d.className='card-int';
+  d.innerHTML='<div class="card-hd"><span class="card-badge">'+n+'ª internação</span><span style="font-size:12px;font-weight:600;color:var(--text-mid);">Internação Respiratória</span></div>'+
+    '<div class="card-body-g g4"><div class="campo"><label>Data entrada</label><input type="text" class="data-input" placeholder="DD/MM/AAAA" maxlength="10" oninput="mascaraData(this)"></div>'+
     '<div class="campo"><label>Duração (dias)</label><input type="number" placeholder="Ex: 5" min="1"></div>'+
     '<div class="campo"><label>Diagnóstico de alta</label><input type="text" placeholder="Ex: bronquiolite..."></div>'+
     '<div class="campo"><label>Necessitou UTI</label><div class="btn-group" id="grpUTI'+id+'">'+
-      '<button class="btn-sel" onclick="selecionarUTI(\''+id+'\',false,this)">Não</button>'+
-      '<button class="btn-sel" onclick="selecionarUTI(\''+id+'\',true,this)">Sim</button>'+
-    '</div><div id="utiBadge'+id+'" style="display:none;margin-top:4px;"><span style="background:#2d0000;border:1px solid var(--red);color:#ff8080;font-size:10px;font-weight:bold;padding:2px 8px;border-radius:2px;">⚠ UTI</span></div></div>'+
-    '</div>';
+    '<button class="btn-sel" onclick="selecionarUTI(\''+id+'\',false,this)">Não</button>'+
+    '<button class="btn-sel" onclick="selecionarUTI(\''+id+'\',true,this)">Sim</button>'+
+    '</div><div id="utiBadge'+id+'" style="display:none;margin-top:6px;"><span class="card-badge uti">⚠ UTI</span></div></div></div>';
   return d;
 }
-function selecionarUTI(id,sim,btn){
-  var g=btn.parentElement;g.querySelectorAll('.btn-sel').forEach(function(b){b.classList.remove('ativo','ativo-red');});
-  btn.classList.add(sim?'ativo-red':'ativo');
-  var b=document.getElementById('utiBadge'+id);if(b)b.style.display=sim?'block':'none';
-}
+function selecionarUTI(id,sim,btn){var g=btn.parentElement;g.querySelectorAll('.btn-sel').forEach(function(b){b.classList.remove('ativo','ativo-red');});btn.classList.add(sim?'ativo-red':'ativo');var b=document.getElementById('utiBadge'+id);if(b)b.style.display=sim?'block':'none';}
 
-/* ══════════════════════════════════════════
-   BLOCO 4 — FEBRE
-══════════════════════════════════════════ */
 function selecionarFebre(est){
   var bP=document.getElementById('btnFebPresente'),bA=document.getElementById('btnFebAusente');
   bP.classList.remove('ativo','ativo-red','ativo-green');bA.classList.remove('ativo','ativo-red','ativo-green');
   var corpo=document.getElementById('corpoFebre'),al=document.getElementById('alertaNeonatal');
-  if(est==='presente'){
-    bP.classList.add('ativo-red');corpo.style.display='block';
-    if(faixaNeonatal)al.style.display='block';
-    document.getElementById('stFebre').textContent='Febre: Presente';
-    document.getElementById('stFebre').style.color='var(--red-light)';
-  } else {
-    bA.classList.add('ativo-green');corpo.style.display='none';al.style.display='none';
-    document.getElementById('stFebre').textContent='Febre: Ausente';
-    document.getElementById('stFebre').style.color='var(--success)';
-  }
+  if(est==='presente'){bP.classList.add('ativo-red');corpo.style.display='block';if(faixaNeonatal)al.style.display='block';document.getElementById('stFebre').textContent='Febre: Presente';document.getElementById('stFebre').className='crit';}
+  else{bA.classList.add('ativo-green');corpo.style.display='none';al.style.display='none';document.getElementById('stFebre').textContent='Febre: Ausente';document.getElementById('stFebre').className='ok';}
 }
 function atualizarDuracaoFebre(){
   var ds=document.getElementById('dataInicioFebre').value,hs=document.getElementById('horaInicioFebre').value;
@@ -993,82 +2041,54 @@ function gerarCardsDias(){
   cont.innerHTML='';
   dias.forEach(function(d,i){cont.appendChild(criarCardDia(d,i,dias.length));});
   dtb.style.display='block';document.getElementById('duracaoTotalTxt').textContent=dias.length===1?'1 dia':dias.length+' dias';
-  cb.style.display='block';
-  gerarTimeline(dias);
+  cb.style.display='block';gerarTimeline(dias);
 }
 function criarCardDia(dia,idx,total){
   var isH=idx===total-1,isP=idx===0,sf='dia'+idx;
-  var card=document.createElement('div');card.className='card-dia';
+  var card=document.createElement('div');card.className='card-dia';card.id='cardDia'+idx;
   var df=dia.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'});
-  card.innerHTML='<div class="card-dia-hd"><span class="day-badge'+(isH?' hoje':'')+'>'+(isH?'Hoje':'Dia '+(idx+1))+'</span><span style="font-size:11px;color:var(--gold);font-weight:bold;">'+df+'</span></div>'+
+  card.innerHTML='<div class="card-dia-hd"><span class="day-badge'+(isH?' hoje':'')+'>'+(isH?'Hoje':'Dia '+(idx+1))+'</span><span style="font-size:12px;font-weight:600;color:var(--text-mid);">'+df+'</span>'+(isP?'<span style="font-size:11px;color:var(--text-soft);">— 1º dia</span>':'')+'</div>'+
     '<div class="card-dia-body" id="cdb'+sf+'"></div>';
-  setTimeout(function(){popularCardDia(sf,isH,isP,dia);},0);
+  setTimeout(function(){popularCardDia(sf,isH,isP);},0);
   return card;
 }
-function popularCardDia(sf,isH,isP,dia){
+function popularCardDia(sf,isH,isP){
   var body=document.getElementById('cdb'+sf);if(!body)return;
   var html='';
-  if(isP)html+='<div class="campo"><label>Horário de início da febre</label><div style="display:flex;gap:10px;align-items:center;"><input type="text" id="hIni'+sf+'" placeholder="HH:MM" maxlength="5" style="width:90px;" oninput="mascaraHora(this)"><span style="font-size:11px;color:var(--gold);font-style:italic;" id="durIni'+sf+'"></span></div></div>';
-  html+='<div class="cg3">';
+  if(isP)html+='<div class="campo"><label>Horário de início da febre</label><div style="display:flex;gap:12px;align-items:center;"><input type="text" id="hIni'+sf+'" placeholder="HH:MM" maxlength="5" style="width:100px;" oninput="mascaraHora(this)"><span class="duracao-auto" id="durIni'+sf+'"></span></div></div>';
+  html+='<div class="g3">';
   html+='<div class="campo"><label>Turnos com febre</label><div class="btn-group" id="grpTur'+sf+'"><button class="btn-sel" onclick="this.classList.toggle(\'ativo\')">Manhã</button><button class="btn-sel" onclick="this.classList.toggle(\'ativo\')">Tarde</button><button class="btn-sel" onclick="this.classList.toggle(\'ativo\')">Noite</button><button class="btn-sel" onclick="this.classList.toggle(\'ativo\')">Madrugada</button><button class="btn-sel" onclick="this.classList.toggle(\'ativo\')">Contínua</button></div></div>';
   html+='<div class="campo"><label>Método de aferição</label><div class="btn-group" id="grpMet'+sf+'"><button class="btn-sel" onclick="selecionarUnico(\'grpMet'+sf+'\',this)">Axilar</button><button class="btn-sel" onclick="selecionarUnico(\'grpMet'+sf+'\',this)">Retal</button><button class="btn-sel" onclick="selecionarUnico(\'grpMet'+sf+'\',this)">Timpânica</button><button class="btn-sel" onclick="selecionarUnico(\'grpMet'+sf+'\',this)">Oral</button><button class="btn-sel" onclick="selecionarUnico(\'grpMet'+sf+'\',this)">Testa</button></div></div>';
   html+='<div class="campo"><label>Padrão da febre</label><div class="btn-group" id="grpPad'+sf+'"><button class="btn-sel" onclick="selecionarUnico(\'grpPad'+sf+'\',this)">Contínua</button><button class="btn-sel" onclick="selecionarUnico(\'grpPad'+sf+'\',this)">Intermitente</button><button class="btn-sel" onclick="selecionarUnico(\'grpPad'+sf+'\',this)">Vespertina</button><button class="btn-sel" onclick="selecionarUnico(\'grpPad'+sf+'\',this)">Noturna</button></div></div>';
-  html+='</div>';
-  html+='<div class="cg2">';
+  html+='</div><div class="g2">';
   html+='<div class="campo"><label>Sintomas associados</label><div class="btn-group" id="grpSinF'+sf+'"><button class="btn-sel" onclick="this.classList.toggle(\'ativo\')">Calafrios</button><button class="btn-sel" onclick="this.classList.toggle(\'ativo\')">Sudorese</button><button class="btn-sel" onclick="this.classList.toggle(\'ativo\')">Prostração</button></div></div>';
-  html+='<div class="campo"><label>Temperatura máxima (°C)</label><input type="number" id="tMax'+sf+'" placeholder="Ex: 38.9" step=".1" min="35" max="42" style="width:110px;"></div>';
+  html+='<div class="campo"><label>Temperatura máxima (°C)</label><input type="number" id="tMax'+sf+'" placeholder="Ex: 38.9" step=".1" min="35" max="42" style="width:120px;"></div>';
   html+='</div>';
-  /* antitérmico */
   html+='<div class="anti-secao"><div class="anti-titulo">Antitérmico utilizado</div>';
-  html+='<div class="btn-group" id="grpAnti'+sf+'" style="margin-bottom:9px;">';
+  html+='<div class="btn-group" id="grpAnti'+sf+'" style="margin-bottom:10px;">';
   ['Paracetamol','Dipirona','Ibuprofeno','Outro'].forEach(function(d){html+='<button class="btn-sel" onclick="toggleAnti(this,\''+d+'\',\''+sf+'\')" data-drug="'+d+'">'+d+'</button>';});
   html+='</div><div id="listaCalc'+sf+'"></div></div>';
-  /* obs */
   html+='<div class="campo"><label>Observações de dosagem e horários</label><textarea id="obsAnti'+sf+'" placeholder="Ex: Paracetamol às 14h, febre retornou às 18h..."></textarea></div>';
-  /* resposta */
   html+='<div class="campo"><label>Resposta ao antitérmico</label><div class="btn-group" id="grpRespA'+sf+'">';
   ['Boa resposta','Resposta parcial','Sem resposta','Não administrado'].forEach(function(v){html+='<button class="btn-sel" onclick="selecionarRespAnti(this,\''+sf+'\')">'+v+'</button>';});
   html+='</div></div>';
-  html+='<div id="boxCompR'+sf+'" style="display:none;background:#040d1a;border:1px solid var(--border);border-radius:3px;padding:9px 11px;margin-top:5px;"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.7px;font-weight:bold;margin-bottom:6px;">Resp. compreende antitérmico leva 1h30 e reduz ~1,5°C?</div><div class="btn-group" id="grpCR'+sf+'"><button class="btn-sel" onclick="selecionarUnico(\'grpCR'+sf+'\',this)">Sim</button><button class="btn-sel" onclick="selecionarUnico(\'grpCR'+sf+'\',this)">Não — orientado agora</button><button class="btn-sel" onclick="selecionarUnico(\'grpCR'+sf+'\',this)">Não avaliado</button></div></div>';
-  /* como ficou */
+  html+='<div id="boxCompR'+sf+'" style="display:none;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin-top:6px;"><div style="font-size:12px;font-weight:500;color:var(--text-mid);margin-bottom:8px;">Responsável compreende que o antitérmico leva 1h30 e reduz ~1,5°C?</div><div class="btn-group" id="grpCR'+sf+'"><button class="btn-sel" onclick="selecionarUnico(\'grpCR'+sf+'\',this)">Sim</button><button class="btn-sel" onclick="selecionarUnico(\'grpCR'+sf+'\',this)">Não — orientado agora</button><button class="btn-sel" onclick="selecionarUnico(\'grpCR'+sf+'\',this)">Não avaliado</button></div></div>';
   html+='<div class="campo"><label>Como ficou após cessar a febre</label><div class="btn-group" id="grpApos'+sf+'">';
   ['Ativa e bem-disposta','Prostrada sem energia','Irritável','Sonolenta','Choro persistente','Recusou alimentação','Brincou normalmente','Dormiu logo em seguida'].forEach(function(v){html+='<button class="btn-sel" onclick="this.classList.toggle(\'ativo\')">'+v+'</button>';});
   html+='</div></div>';
-  /* ainda com febre */
   if(isH){
-    html+='<div class="campo"><label>Ainda está com febre?</label><div class="btn-group" id="grpAindaF'+sf+'">';
-    html+='<button class="btn-sel" onclick="toggleAindaFebre(\''+sf+'\',true,this)">Sim</button>';
-    html+='<button class="btn-sel" onclick="toggleAindaFebre(\''+sf+'\',false,this)">Não</button>';
-    html+='</div></div>';
-    html+='<div id="boxTA'+sf+'" style="display:none;"><div class="campo"><label>Temperatura atual (°C)</label><input type="number" id="tAtual'+sf+'" placeholder="Ex: 38.3" step=".1" min="35" max="42" style="width:110px;"></div></div>';
-    html+='<div id="boxUH'+sf+'" style="display:none;"><div style="display:flex;gap:14px;align-items:flex-end;"><div class="campo"><label>Último horário de febre</label><input type="text" id="ultH'+sf+'" placeholder="HH:MM" maxlength="5" style="width:90px;" oninput="mascaraHora(this);calcAfebril(\''+sf+'\')"></div><span class="duracao-auto" id="afebInfo'+sf+'"></span></div></div>';
+    html+='<div class="campo"><label>Ainda está com febre?</label><div class="btn-group" id="grpAindaF'+sf+'"><button class="btn-sel" onclick="toggleAindaFebre(\''+sf+'\',true,this)">Sim</button><button class="btn-sel" onclick="toggleAindaFebre(\''+sf+'\',false,this)">Não</button></div></div>';
+    html+='<div id="boxTA'+sf+'" style="display:none;margin-top:8px;"><div class="campo"><label>Temperatura atual (°C)</label><input type="number" id="tAtual'+sf+'" placeholder="Ex: 38.3" step=".1" min="35" max="42" style="width:120px;"></div></div>';
+    html+='<div id="boxUH'+sf+'" style="display:none;margin-top:8px;"><div style="display:flex;gap:14px;align-items:flex-end;"><div class="campo"><label>Último horário de febre</label><input type="text" id="ultH'+sf+'" placeholder="HH:MM" maxlength="5" style="width:100px;" oninput="mascaraHora(this);calcAfebril(\''+sf+'\')"></div><span class="duracao-auto" id="afebInfo'+sf+'"></span></div></div>';
   }
   body.innerHTML=html;
 }
-function selecionarRespAnti(btn,sf){
-  var g=btn.parentElement;g.querySelectorAll('.btn-sel').forEach(function(b){b.classList.remove('ativo');});btn.classList.add('ativo');
-  var v=btn.textContent.trim(),box=document.getElementById('boxCompR'+sf);
-  if(box)box.style.display=(v==='Resposta parcial'||v==='Sem resposta')?'block':'none';
-}
-function toggleAindaFebre(sf,sim,btn){
-  var g=btn.parentElement;g.querySelectorAll('.btn-sel').forEach(function(b){b.classList.remove('ativo');});btn.classList.add('ativo');
-  var bS=document.getElementById('boxTA'+sf),bN=document.getElementById('boxUH'+sf);
-  if(bS)bS.style.display=sim?'block':'none';
-  if(bN)bN.style.display=sim?'none':'block';
-}
-function calcAfebril(sf){
-  var i=document.getElementById('ultH'+sf),s=document.getElementById('afebInfo'+sf);
-  if(!i||!s||i.value.length<5)return;
-  var p=i.value.split(':'),h=new Date();h.setHours(+p[0],+p[1],0);
-  var d=new Date()-h;if(d<0){s.textContent='';return;}
-  s.textContent='Há '+Math.floor(d/3600000)+'h '+Math.floor((d%3600000)/60000)+'min afebril';
-}
+function selecionarRespAnti(btn,sf){var g=btn.parentElement;g.querySelectorAll('.btn-sel').forEach(function(b){b.classList.remove('ativo');});btn.classList.add('ativo');var v=btn.textContent.trim(),box=document.getElementById('boxCompR'+sf);if(box)box.style.display=(v==='Resposta parcial'||v==='Sem resposta')?'block':'none';}
+function toggleAindaFebre(sf,sim,btn){var g=btn.parentElement;g.querySelectorAll('.btn-sel').forEach(function(b){b.classList.remove('ativo');});btn.classList.add('ativo');var bS=document.getElementById('boxTA'+sf),bN=document.getElementById('boxUH'+sf);if(bS)bS.style.display=sim?'block':'none';if(bN)bN.style.display=sim?'none':'block';}
+function calcAfebril(sf){var i=document.getElementById('ultH'+sf),s=document.getElementById('afebInfo'+sf);if(!i||!s||i.value.length<5)return;var p=i.value.split(':'),h=new Date();h.setHours(+p[0],+p[1],0);var d=new Date()-h;if(d<0){s.textContent='';return;}s.textContent='Há '+Math.floor(d/3600000)+'h '+Math.floor((d%3600000)/60000)+'min afebril';}
 
-/* ══════════════════════════════════════════
-   CALCULADOR ANTITÉRMICOS
-══════════════════════════════════════════ */
 var cfgDrugs={
-  'Paracetamol':{doses:[{l:'10mg/kg (mín)',v:10},{l:'12,5mg/kg',v:12.5},{l:'15mg/kg (máx)',v:15}],int:'4–6h',maxD:75,apres:[{l:'Tylenol 13mg/gota',mg:13,u:'gotas'},{l:'Genérico 10mg/gota',mg:10,u:'gotas'},{l:'Sol 200mg/mL',mg:200,u:'mL',f:20}]},
+  'Paracetamol':{doses:[{l:'10mg/kg (mín)',v:10},{l:'12,5mg/kg',v:12.5},{l:'15mg/kg (máx)',v:15}],int:'4–6h',maxD:75,apres:[{l:'Tylenol 13mg/gota',mg:13,u:'gotas'},{l:'Genérico 10mg/gota',mg:10,u:'gotas'},{l:'Sol 200mg/mL',mg:200,u:'mL'}]},
   'Dipirona':{doses:[{l:'10mg/kg',v:10},{l:'12,5mg/kg',v:12.5},{l:'15mg/kg',v:15},{l:'20mg/kg (máx)',v:20}],int:'6h',maxD:null,apres:[{l:'500mg/mL (gotas)',mg:25,u:'gotas'},{l:'500mg/mL (mL)',mg:500,u:'mL'}]},
   'Ibuprofeno':{doses:[{l:'5mg/kg (mín)',v:5},{l:'7,5mg/kg',v:7.5},{l:'10mg/kg (máx)',v:10}],int:'6–8h',maxD:40,apres:[{l:'100mg/5mL',mg:20,u:'mL'},{l:'50mg/mL gotas',mg:50,u:'gotas'}]}
 };
@@ -1084,9 +2104,8 @@ function toggleAnti(btn,drug,sf){
 }
 function buildCalcDrug(drug,sf,cid){
   var cfg=cfgDrugs[drug],d=document.createElement('div');d.className='calc-drug';d.id=cid;
-  var dosH=cfg.doses.map(function(x,i){return '<button class="btn-dose" onclick="selDose(\''+cid+'\','+x.v+',\''+drug+'\',\''+sf+'\')">'+x.l+'</button>';}).join('');
-  var apH='<select id="apres_'+cid+'" onchange="calcDrug(\''+cid+'\',\''+drug+'\',\''+sf+'\')" style="background:var(--input-bg);border:1px solid var(--border);color:var(--text);font-family:Georgia,serif;font-size:12px;padding:6px 8px;border-radius:3px;"><option value="">Apresentação</option>'+
-    cfg.apres.map(function(a,i){return '<option value="'+i+'">'+a.l+'</option>';}).join('')+'</select>';
+  var dosH=cfg.doses.map(function(x){return '<button class="btn-dose" onclick="selDose(\''+cid+'\','+x.v+',\''+drug+'\',\''+sf+'\')">'+x.l+'</button>';}).join('');
+  var apH='<select id="apres_'+cid+'" onchange="calcDrug(\''+cid+'\',\''+drug+'\',\''+sf+'\')" style="background:var(--bg);border:1.5px solid var(--border);color:var(--text-dark);font-family:Inter,sans-serif;font-size:13px;padding:8px 10px;border-radius:var(--radius-sm);"><option value="">Apresentação</option>'+cfg.apres.map(function(a,i){return '<option value="'+i+'">'+a.l+'</option>';}).join('')+'</select>';
   d.innerHTML='<div class="calc-drug-titulo"><span class="drug-badge">'+drug+'</span> Intervalo: '+cfg.int+(cfg.maxD?' · Máx diário: '+cfg.maxD+' mg/kg':'')+'</div>'+
     '<div class="doses-row" id="doses_'+cid+'">'+dosH+'</div>'+
     '<div class="calc-row"><div class="campo"><label>Apresentação</label>'+apH+'</div>'+
@@ -1095,22 +2114,15 @@ function buildCalcDrug(drug,sf,cid){
     '<div class="intervalo-info" id="info_'+cid+'"></div>';
   return d;
 }
-function selDose(cid,v,drug,sf){
-  dosesSel[cid]=v;
-  document.querySelectorAll('#doses_'+cid+' .btn-dose').forEach(function(b){b.classList.remove('ativo');});
-  var cfg=cfgDrugs[drug];
-  document.querySelectorAll('#doses_'+cid+' .btn-dose').forEach(function(b,i){if(cfg.doses[i]&&cfg.doses[i].v===v)b.classList.add('ativo');});
-  calcDrug(cid,drug,sf);
-}
+function selDose(cid,v,drug,sf){dosesSel[cid]=v;document.querySelectorAll('#doses_'+cid+' .btn-dose').forEach(function(b){b.classList.remove('ativo');});var cfg=cfgDrugs[drug];document.querySelectorAll('#doses_'+cid+' .btn-dose').forEach(function(b,i){if(cfg.doses[i]&&cfg.doses[i].v===v)b.classList.add('ativo');});calcDrug(cid,drug,sf);}
 function calcDrug(cid,drug,sf){
   var peso=parseFloat(document.getElementById('pesoPacFeb').value)||parseFloat(document.getElementById('pacPeso').value)||0;
   var res=document.getElementById('res_'+cid),info=document.getElementById('info_'+cid);
-  if(!res)return;
-  if(!peso){res.className='calc-res';res.textContent='Informe o peso';return;}
+  if(!res)return;if(!peso){res.className='calc-res';res.textContent='Informe o peso';return;}
   var mgkg=dosesSel[cid];if(!mgkg){res.className='calc-res';res.textContent='Selecione dose';return;}
   var cfg=cfgDrugs[drug],tot=mgkg*peso;
   var apIdx=parseInt(document.getElementById('apres_'+cid).value);
-  if(isNaN(apIdx)||!cfg.apres[apIdx]){res.className='calc-res ok';res.textContent=tot.toFixed(1)+' mg';if(info)info.textContent='Dose calculada para '+peso+'kg';return;}
+  if(isNaN(apIdx)||!cfg.apres[apIdx]){res.className='calc-res ok';res.textContent=tot.toFixed(1)+' mg';if(info)info.textContent='Dose para '+peso+'kg';return;}
   var ap=cfg.apres[apIdx],qtd=parseFloat(document.getElementById('qtd_'+cid).value);
   if(!isNaN(qtd)&&qtd>0){
     var adm=qtd*ap.mg,kgA=adm/peso,maxK=cfg.doses[cfg.doses.length-1].v,minK=cfg.doses[0].v;
@@ -1118,290 +2130,104 @@ function calcDrug(cid,drug,sf){
     else if(kgA>maxK){res.className='calc-res warn';res.textContent=kgA.toFixed(1)+' mg/kg ↑';if(info)info.textContent='Acima do máx por dose ('+maxK+' mg/kg)';}
     else if(kgA<minK){res.className='calc-res warn';res.textContent=kgA.toFixed(1)+' mg/kg ↓';if(info)info.textContent='Abaixo do mín terapêutico ('+minK+' mg/kg)';}
     else{res.className='calc-res ok';res.textContent=kgA.toFixed(1)+' mg/kg ✓';if(info)info.textContent='Dentro da faixa ('+minK+'–'+maxK+' mg/kg)';}
-  } else {
-    var ideal=tot/ap.mg;
-    res.className='calc-res ok';res.textContent=tot.toFixed(1)+' mg';
-    if(info)info.textContent='Equivale a '+ideal.toFixed(1)+' '+ap.u+' de '+ap.l;
-  }
+  } else {var ideal=tot/ap.mg;res.className='calc-res ok';res.textContent=tot.toFixed(1)+' mg';if(info)info.textContent='Equivale a '+ideal.toFixed(1)+' '+ap.u+' de '+ap.l;}
 }
 
-/* ══════════════════════════════════════════
-   BLOCO 5 — SINTOMAS
-══════════════════════════════════════════ */
-function toggleSintoma(nome,show){
-  var mapa={coriza:'detalheCoriza',tosse:'detalheTosse',sibilancia:'detalheSibilancia',dispneia:'detalheDispneia',garganta:'detalheGarganta',otalgia:'detalheOtalgia',exantema:'detalheExantema',vomito:'detalheVomito',recusa:'detalheRecusa'};
-  var el=document.getElementById(mapa[nome]);if(el)el.style.display=show?'block':'none';
-}
+function toggleSintoma(nome,show){var mapa={coriza:'detalheCoriza',tosse:'detalheTosse',sibilancia:'detalheSibilancia',dispneia:'detalheDispneia',garganta:'detalheGarganta',otalgia:'detalheOtalgia',exantema:'detalheExantema',vomito:'detalheVomito',recusa:'detalheRecusa'};var el=document.getElementById(mapa[nome]);if(el)el.style.display=show?'block':'none';}
 
-/* ══════════════════════════════════════════
-   BLOCO 7 — ESCORES
-══════════════════════════════════════════ */
 function calcScore(grps,boxId,numId,classId,condId,limites,descs,conds){
-  var total=0,completo=true;
-  grps.forEach(function(g){var b=document.querySelector('#'+g+' .btn-sel.ativo');if(b&&b.dataset.pts!==undefined)total+=parseInt(b.dataset.pts);else completo=false;});
-  var box=document.getElementById(boxId);if(!box)return;
-  box.style.display='block';
+  var total=0;
+  grps.forEach(function(g){var b=document.querySelector('#'+g+' .btn-sel.ativo');if(b&&b.dataset.pts!==undefined)total+=parseInt(b.dataset.pts);});
+  var box=document.getElementById(boxId);if(!box)return;box.style.display='block';
   document.getElementById(numId).textContent=total;
   var cl='e-leve',txt=descs[0],cd=conds[0];
   for(var i=0;i<limites.length;i++){if(total>=limites[i]){cl=['e-leve','e-mod','e-grav'][i];txt=descs[i];cd=conds[i];}}
   var ce=document.getElementById(classId),co=document.getElementById(condId);
-  if(ce){ce.className='escore-class '+cl;ce.textContent=txt;}
-  if(co)co.textContent=cd;
+  if(ce){ce.className='escore-class '+cl;ce.textContent=txt;}if(co)co.textContent=cd;
 }
 function calcGRSS(){calcScore(['grpGRSS_FR','grpGRSS_Sat','grpGRSS_Ret','grpGRSS_Sib'],'totalBoxGRSS','numGRSS','classGRSS','condGRSS',[0,4,8],['Leve','Moderado','Grave'],['Manejo ambulatorial','Observação hospitalar 4–6h','Hospitalização obrigatória']);}
 function calcPRAM(){calcScore(['grpPRAM_Sib','grpPRAM_EA','grpPRAM_Esc','grpPRAM_Sup','grpPRAM_Sat'],'totalBoxPRAM','numPRAM','classPRAM','condPRAM',[0,4,8],['Leve','Moderado','Grave'],['Manejo ambulatorial','Observação e broncodilatadores frequentes','Hospitalização']);}
 function calcWestley(){calcScore(['grpWest_NC','grpWest_Ci','grpWest_Es','grpWest_EA','grpWest_Re'],'totalBoxWest','numWest','classWest','condWest',[0,3,8],['Leve','Moderado','Grave'],['Manejo ambulatorial','Observação — considerar corticoide','Hospitalização — corticoide + adrenalina']);}
 
-/* ══════════════════════════════════════════
-   BLOCO 9 — LINHA DO TEMPO
-══════════════════════════════════════════ */
 function gerarTimeline(dias){
   var svg=document.getElementById('svgTimeline');if(!svg)return;
-  if(!dias||dias.length===0){svg.innerHTML='<text x="10" y="55" font-family="Georgia,serif" font-size="12" fill="#8ba3c7">Preencha a data de início para gerar a linha do tempo.</text>';return;}
-  var W=Math.max(dias.length*70+40,400),H=110;
-  svg.setAttribute('viewBox','0 0 '+W+' '+H);
-  svg.setAttribute('width',W);
-  var html='';
-  var y=55,r=8,pad=40;
-  /* linha base */
-  html+='<line x1="'+pad+'" y1="'+y+'" x2="'+(W-pad)+'" y2="'+y+'" stroke="#1e3a5f" stroke-width="2"/>';
-  var hoje=new Date();
+  if(!dias||dias.length===0){svg.innerHTML='<text x="10" y="55" font-family="Inter,sans-serif" font-size="13" fill="#94a3b8">Preencha a data de início para gerar a linha do tempo.</text>';return;}
+  var W=Math.max(dias.length*80+60,500),H=110;
+  svg.setAttribute('viewBox','0 0 '+W+' '+H);svg.setAttribute('width',W);
+  var html='',y=55,pad=40;
+  html+='<line x1="'+pad+'" y1="'+y+'" x2="'+(W-pad)+'" y2="'+y+'" stroke="#e2e8f0" stroke-width="2"/>';
   dias.forEach(function(dia,i){
     var x=pad+i*(W-2*pad)/(Math.max(dias.length-1,1));
-    var isHoje=i===dias.length-1;
-    /* verificar se há febre neste dia (card preenchido) */
-    var temFebre=false; /* simplificado — na integração lê os campos */
-    var cor=isHoje?'#d35400':temFebre?'#c0392b':'#2a5298';
+    var isH=i===dias.length-1,isP=i===0;
+    var cor=isH?'#f97316':isP?'#ef4444':'#3b82f6';
     var dfmt=dia.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
-    html+='<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+cor+'" stroke="#0d1f3c" stroke-width="2"/>';
-    html+='<text x="'+x+'" y="'+(y+22)+'" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#8ba3c7">'+dfmt+'</text>';
-    if(isHoje)html+='<text x="'+x+'" y="'+(y-14)+'" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#d35400">Hoje</text>';
-    if(i===0)html+='<text x="'+x+'" y="'+(y-14)+'" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#e74c3c">Início</text>';
+    html+='<circle cx="'+x+'" cy="'+y+'" r="7" fill="'+cor+'" stroke="white" stroke-width="2"/>';
+    html+='<text x="'+x+'" y="'+(y+22)+'" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#64748b">'+dfmt+'</text>';
+    if(isH)html+='<text x="'+x+'" y="'+(y-16)+'" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#f97316" font-weight="600">Hoje</text>';
+    if(isP)html+='<text x="'+x+'" y="'+(y-16)+'" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#ef4444" font-weight="600">Início</text>';
   });
   svg.innerHTML=html;
-  /* resumo */
-  var n=dias.length;
-  document.getElementById('resumoTimeline').innerHTML=
-    '<span style="color:var(--gold);font-weight:bold;">Evolução: </span>'+
-    'Início em '+dias[0].toLocaleDateString('pt-BR')+'. Duração total de '+n+' dia(s). '+
-    'Data atual: '+hoje.toLocaleDateString('pt-BR')+'.';
+  var n=dias.length,hoje=new Date();
+  document.getElementById('resumoTimeline').innerHTML='<strong style="color:var(--text-dark);">Evolução:</strong> Início em '+dias[0].toLocaleDateString('pt-BR')+'. Duração total de '+n+' dia(s). Data atual: '+hoje.toLocaleDateString('pt-BR')+'.';
 }
 
-/* ══════════════════════════════════════════
-   COLETA DE DADOS DO FORMULÁRIO
-══════════════════════════════════════════ */
 function coletarDados(){
   var d={};
-  d.paciente={
-    nome:document.getElementById('pacNome').value,
-    idadeNum:document.getElementById('pacIdadeNum').value,
-    idadeUnid:document.getElementById('pacIdadeUnid').value,
-    faixaEtaria:document.getElementById('badgeIdade').textContent,
-    peso:document.getElementById('pacPeso').value,
-    sexo:getValGrupo('grpSexo'),
-    relator:getValGrupo('grpRelata')
-  };
-  d.pat={
-    hora:document.getElementById('horaAvaliacao').value,
-    aparencia:estadoPAT.apar,
-    respiracao:estadoPAT.resp,
-    circulacao:estadoPAT.circ,
-    achadosApar:getAtivos('achApar'),
-    achadosResp:getAtivos('achResp'),
-    achadosCirc:getAtivos('achCirc'),
-    classificacao:document.getElementById('patNivel').textContent
-  };
-  d.febre={
-    presente:document.getElementById('btnFebPresente').classList.contains('ativo-red'),
-    dataInicio:document.getElementById('dataInicioFebre').value,
-    duracao:document.getElementById('duracaoTotalTxt').textContent
-  };
-  d.sintomas={
-    coriza:getValGrupo('grpCoriza'),tipoCoriza:getValGrupo('grpTipoCoriza'),obstNasal:getValGrupo('grpObstNasal'),
-    tosse:getValGrupo('grpTosse'),tipoTosse:getValGrupo('grpTipoTosse'),horTosse:getValGrupo('grpHorTosse'),
-    sibilancia:getValGrupo('grpSibilancia5'),faseSib:getValGrupo('grpFaseSib'),
-    dispneia:getValGrupo('grpDispneia'),
-    disfagia:getValGrupo('grpDisfagia'),exsudato:getValGrupo('grpExsudato'),
-    otalgia:getValGrupo('grpOtalgia'),ouvido:getValGrupo('grpOuvido'),
-    vomito:getValGrupo('grpVomito'),
-    recusa:getValGrupo('grpRecusa')
-  };
-  d.exFisico={
-    eg:getAtivos('grpEG'),resp:getAtivos('grpEFResp'),orl:getAtivos('grpEFORL'),
-    cv:getAtivos('grpEFCV'),abd:getAtivos('grpEFAbd'),neuro:getAtivos('grpEFNeuro')
-  };
-  d.escores={
-    GRSS:document.getElementById('numGRSS').textContent+' — '+document.getElementById('classGRSS').textContent,
-    PRAM:document.getElementById('numPRAM').textContent+' — '+document.getElementById('classPRAM').textContent,
-    Westley:document.getElementById('numWest').textContent+' — '+document.getElementById('classWest').textContent
-  };
-  d.contexto={
-    reentradas:document.querySelector('#grpReentradas .btn-num.ativo')?document.querySelector('#grpReentradas .btn-num.ativo').textContent:'não informado',
-    internacoes:document.querySelector('#grpInternacoes .btn-num.ativo')?document.querySelector('#grpInternacoes .btn-num.ativo').textContent:'não informado'
-  };
+  d.paciente={nome:document.getElementById('pacNome').value,idadeNum:document.getElementById('pacIdadeNum').value,idadeUnid:document.getElementById('pacIdadeUnid').value,faixaEtaria:document.getElementById('badgeIdade').textContent,peso:document.getElementById('pacPeso').value,sexo:getValGrupo('grpSexo'),relator:getValGrupo('grpRelata')};
+  d.pat={hora:document.getElementById('horaAvaliacao').value,aparencia:estadoPAT.apar,respiracao:estadoPAT.resp,circulacao:estadoPAT.circ,achadosApar:getAtivos('achApar'),achadosResp:getAtivos('achResp'),achadosCirc:getAtivos('achCirc'),classificacao:document.getElementById('patNivel').textContent};
+  d.febre={presente:document.getElementById('btnFebPresente').classList.contains('ativo-red'),dataInicio:document.getElementById('dataInicioFebre').value,duracao:document.getElementById('duracaoTotalTxt').textContent};
+  d.sintomas={coriza:getValGrupo('grpCoriza'),tipoCoriza:getValGrupo('grpTipoCoriza'),obstNasal:getValGrupo('grpObstNasal'),tosse:getValGrupo('grpTosse'),tipoTosse:getValGrupo('grpTipoTosse'),horTosse:getValGrupo('grpHorTosse'),sibilancia:getValGrupo('grpSibilancia5'),faseSib:getValGrupo('grpFaseSib'),dispneia:getValGrupo('grpDispneia'),disfagia:getValGrupo('grpDisfagia'),exsudato:getValGrupo('grpExsudato'),otalgia:getValGrupo('grpOtalgia'),ouvido:getValGrupo('grpOuvido'),vomito:getValGrupo('grpVomito'),recusa:getValGrupo('grpRecusa')};
+  d.exFisico={eg:getAtivos('grpEG'),resp:getAtivos('grpEFResp'),orl:getAtivos('grpEFORL'),cv:getAtivos('grpEFCV'),abd:getAtivos('grpEFAbd'),neuro:getAtivos('grpEFNeuro')};
+  d.escores={GRSS:document.getElementById('numGRSS').textContent+' — '+document.getElementById('classGRSS').textContent,PRAM:document.getElementById('numPRAM').textContent+' — '+document.getElementById('classPRAM').textContent,Westley:document.getElementById('numWest').textContent+' — '+document.getElementById('classWest').textContent};
+  d.contexto={reentradas:document.querySelector('#grpReentradas .btn-num.ativo')?document.querySelector('#grpReentradas .btn-num.ativo').textContent:'não informado',internacoes:document.querySelector('#grpInternacoes .btn-num.ativo')?document.querySelector('#grpInternacoes .btn-num.ativo').textContent:'não informado'};
   return d;
 }
 
-/* ══════════════════════════════════════════
-   CHAMADA API
-══════════════════════════════════════════ */
 function chamarAPI(prompt,callback){
-  fetch(API_URL,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({messages:[{role:'user',content:prompt}]})
-  })
-  .then(function(r){
-    if(!r.ok)return r.json().then(function(e){throw new Error('Servidor retornou '+r.status+': '+(e.error||JSON.stringify(e)));});
-    return r.json();
-  })
-  .then(function(data){
-    var txt='';
-    if(data.content&&Array.isArray(data.content)){
-      data.content.forEach(function(b){if(b.type==='text')txt+=b.text;});
-    } else if(data.error){
-      txt='Erro da API: '+JSON.stringify(data.error);
-    }
-    callback(txt||'Erro: resposta vazia.');
-  })
+  fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}]})})
+  .then(function(r){if(!r.ok)return r.json().then(function(e){throw new Error('Servidor retornou '+r.status+': '+(e.error||JSON.stringify(e)));});return r.json();})
+  .then(function(data){var txt='';if(data.content&&Array.isArray(data.content)){data.content.forEach(function(b){if(b.type==='text')txt+=b.text;});}else if(data.error){txt='Erro da API: '+JSON.stringify(data.error);}callback(txt||'Erro: resposta vazia.');})
   .catch(function(e){callback('Erro ao contatar o servidor: '+e.message);});
 }
 
-/* ══════════════════════════════════════════
-   GERAR PRONTUÁRIO
-══════════════════════════════════════════ */
 function gerarProntuario(){
   var d=coletarDados();
-  var prompt=
-    'DADOS DO ATENDIMENTO:\n'+
-    'PACIENTE: '+d.paciente.nome+' | IDADE: '+d.paciente.idadeNum+' '+d.paciente.idadeUnid+' ('+d.paciente.faixaEtaria+') | PESO: '+d.paciente.peso+' KG | SEXO: '+d.paciente.sexo+'\n'+
-    'PAT ('+d.pat.hora+'): APARÊNCIA '+d.pat.aparencia+' '+d.pat.achadosApar.join(', ')+' | RESPIRAÇÃO '+d.pat.respiracao+' '+d.pat.achadosResp.join(', ')+' | CIRCULAÇÃO '+d.pat.circulacao+' '+d.pat.achadosCirc.join(', ')+' | CLASSIFICAÇÃO: '+d.pat.classificacao+'\n'+
-    'FEBRE: '+(d.febre.presente?'PRESENTE DESDE '+d.febre.dataInicio+' ('+d.febre.duracao+')'  :'AUSENTE')+'\n'+
-    'CORIZA: '+d.sintomas.coriza+' | TIPO: '+d.sintomas.tipoCoriza+' | OBSTRUÇÃO: '+d.sintomas.obstNasal+'\n'+
-    'TOSSE: '+d.sintomas.tosse+' | TIPO: '+d.sintomas.tipoTosse+' | HORÁRIO: '+d.sintomas.horTosse+'\n'+
-    'SIBILÂNCIA: '+d.sintomas.sibilancia+' | FASE: '+d.sintomas.faseSib+'\n'+
-    'DISPNEIA: '+d.sintomas.dispneia+'\n'+
-    'OTALGIA: '+d.sintomas.otalgia+' | '+d.sintomas.ouvido+'\n'+
-    'VÔMITO: '+d.sintomas.vomito+'\n'+
-    'RECUSA ALIMENTAR: '+d.sintomas.recusa+'\n'+
-    'EXAME FÍSICO — EG: '+d.exFisico.eg.join(', ')+'\n'+
-    'RESPIRATÓRIO: '+d.exFisico.resp.join(', ')+'\n'+
-    'ORL: '+d.exFisico.orl.join(', ')+'\n'+
-    'CARDIOVASCULAR: '+d.exFisico.cv.join(', ')+'\n'+
-    'ABDOMINAL: '+d.exFisico.abd.join(', ')+'\n'+
-    'NEUROLÓGICO: '+d.exFisico.neuro.join(', ')+'\n'+
-    'ESCORES: GRSS='+d.escores.GRSS+' | PRAM='+d.escores.PRAM+' | WESTLEY='+d.escores.Westley+'\n'+
-    'CONTEXTO: '+d.contexto.reentradas+' reentrada(s) ao PS | '+d.contexto.internacoes+' internação(ões) anterior(es)\n\n'+
-    'VOCÊ É UM MÉDICO E JUIZ PERITO EM DIREITO MÉDICO ATENDENDO EM EMERGÊNCIA PEDIÁTRICA. REESCREVA A HISTÓRIA CLÍNICA COM PERÍCIA PARA EVITAR PROCESSOS POR IMPERÍCIA NEGLIGÊNCIA OU IMPRUDÊNCIA. UTILIZE O TRATADO DE PEDIATRIA DA SOCIEDADE BRASILEIRA DE PEDIATRIA E O NELSON. ESCREVA EM LETRAS MAIÚSCULAS. SEM SIGLAS. SEM ASPAS. SEM PARÊNTESES. SEM METADISCURSO. SEM A PALAVRA EU. NÃO CITE FONTES. ESTE PRONTUÁRIO DEVE PARECER ESCRITO POR UM MÉDICO NUNCA POR UMA INTELIGÊNCIA ARTIFICIAL. NUNCA ESCREVA DATAS TEMPERATURAS GRAUS OU DURAÇÕES POR EXTENSO. POLÍTICA DA INSTITUIÇÃO RACIONALIZAR CUSTOS. JUSTIFIQUE BREVEMENTE QUALQUER EXAME SOLICITADO. SEQUÊNCIA OBRIGATÓRIA: QUEIXA PRINCIPAL NAS PALAVRAS DO RESPONSÁVEL. HISTÓRIA DA DOENÇA ATUAL COM EVOLUÇÃO DESDE O INÍCIO INCLUINDO TODAS AS REENTRADAS AO PS COM DATAS E CONDUTAS ANTERIORES. HISTÓRIA PATOLÓGICA PREGRESSA COM ANTECEDENTES RELEVANTES INCLUINDO HISTÓRIA NEONATAL SE APLICÁVEL. EXAME FÍSICO POR SISTEMAS COM ACHADOS PRESENTES E AUSENTES SEM REGISTRAR SINAIS VITAIS. HIPÓTESE DIAGNÓSTICA APENAS A HIPÓTESE COM CID-11 SEM EXPLICAÇÕES. DIAGNÓSTICOS DIFERENCIAIS EM LISTA. CONDUTA EM PRIMEIRA PESSOA DO SINGULAR. SE HOUVER EXAMES DESCREVER E INDICAR REAVALIAÇÃO APÓS. SE NÃO HOUVER JUSTIFICAR COM BASE CLÍNICA. SE ALTA LISTAR SINAIS DE ALARME COMPLETOS INCLUINDO ORIENTAÇÃO SOBRE COMPORTAMENTO DO ANTITÉRMICO SE FEBRE PRESENTE.';
-
+  var prompt='DADOS DO ATENDIMENTO:\nPACIENTE: '+d.paciente.nome+' | IDADE: '+d.paciente.idadeNum+' '+d.paciente.idadeUnid+' ('+d.paciente.faixaEtaria+') | PESO: '+d.paciente.peso+' KG | SEXO: '+d.paciente.sexo+'\nPAT ('+d.pat.hora+'): APARÊNCIA '+d.pat.aparencia+' '+d.pat.achadosApar.join(', ')+' | RESPIRAÇÃO '+d.pat.respiracao+' '+d.pat.achadosResp.join(', ')+' | CIRCULAÇÃO '+d.pat.circulacao+' '+d.pat.achadosCirc.join(', ')+' | CLASSIFICAÇÃO: '+d.pat.classificacao+'\nFEBRE: '+(d.febre.presente?'PRESENTE DESDE '+d.febre.dataInicio+' ('+d.febre.duracao+')':'AUSENTE')+'\nCORIZA: '+d.sintomas.coriza+' | TIPO: '+d.sintomas.tipoCoriza+' | OBSTRUÇÃO: '+d.sintomas.obstNasal+'\nTOSSE: '+d.sintomas.tosse+' | TIPO: '+d.sintomas.tipoTosse+' | HORÁRIO: '+d.sintomas.horTosse+'\nSIBILÂNCIA: '+d.sintomas.sibilancia+' | FASE: '+d.sintomas.faseSib+'\nDISPNEIA: '+d.sintomas.dispneia+'\nOTALGIA: '+d.sintomas.otalgia+' | '+d.sintomas.ouvido+'\nVÔMITO: '+d.sintomas.vomito+'\nRECUSA ALIMENTAR: '+d.sintomas.recusa+'\nEXAME FÍSICO — EG: '+d.exFisico.eg.join(', ')+'\nRESPIRATÓRIO: '+d.exFisico.resp.join(', ')+'\nORL: '+d.exFisico.orl.join(', ')+'\nCARDIOVASCULAR: '+d.exFisico.cv.join(', ')+'\nABDOMINAL: '+d.exFisico.abd.join(', ')+'\nNEUROLÓGICO: '+d.exFisico.neuro.join(', ')+'\nESCORES: GRSS='+d.escores.GRSS+' | PRAM='+d.escores.PRAM+' | WESTLEY='+d.escores.Westley+'\nCONTEXTO: '+d.contexto.reentradas+' reentrada(s) ao PS | '+d.contexto.internacoes+' internação(ões)\n\nVOCÊ É UM MÉDICO E JUIZ PERITO EM DIREITO MÉDICO ATENDENDO EM EMERGÊNCIA PEDIÁTRICA. REESCREVA A HISTÓRIA CLÍNICA COM PERÍCIA PARA EVITAR PROCESSOS POR IMPERÍCIA NEGLIGÊNCIA OU IMPRUDÊNCIA. UTILIZE O TRATADO DE PEDIATRIA DA SOCIEDADE BRASILEIRA DE PEDIATRIA E O NELSON. ESCREVA EM LETRAS MAIÚSCULAS. SEM SIGLAS. SEM ASPAS. SEM PARÊNTESES. SEM METADISCURSO. SEM A PALAVRA EU. NÃO CITE FONTES. ESTE PRONTUÁRIO DEVE PARECER ESCRITO POR UM MÉDICO NUNCA POR UMA INTELIGÊNCIA ARTIFICIAL. NUNCA ESCREVA DATAS TEMPERATURAS GRAUS OU DURAÇÕES POR EXTENSO. POLÍTICA DA INSTITUIÇÃO RACIONALIZAR CUSTOS. JUSTIFIQUE BREVEMENTE QUALQUER EXAME SOLICITADO. SEQUÊNCIA OBRIGATÓRIA: QUEIXA PRINCIPAL NAS PALAVRAS DO RESPONSÁVEL. HISTÓRIA DA DOENÇA ATUAL COM EVOLUÇÃO DESDE O INÍCIO INCLUINDO TODAS AS REENTRADAS AO PS COM DATAS E CONDUTAS ANTERIORES. HISTÓRIA PATOLÓGICA PREGRESSA COM ANTECEDENTES RELEVANTES INCLUINDO HISTÓRIA NEONATAL SE APLICÁVEL. EXAME FÍSICO POR SISTEMAS COM ACHADOS PRESENTES E AUSENTES SEM REGISTRAR SINAIS VITAIS. HIPÓTESE DIAGNÓSTICA APENAS A HIPÓTESE COM CID-11 SEM EXPLICAÇÕES. DIAGNÓSTICOS DIFERENCIAIS EM LISTA. CONDUTA EM PRIMEIRA PESSOA DO SINGULAR. SE HOUVER EXAMES DESCREVER E INDICAR REAVALIAÇÃO APÓS. SE NÃO HOUVER JUSTIFICAR COM BASE CLÍNICA. SE ALTA LISTAR SINAIS DE ALARME COMPLETOS INCLUINDO ORIENTAÇÃO SOBRE COMPORTAMENTO DO ANTITÉRMICO SE FEBRE PRESENTE.';
   var divR=document.getElementById('resultadoProntuario'),divT=document.getElementById('textoProntuario');
-  divR.style.display='block';divT.innerHTML='<div style="padding:20px;text-align:center;"><span class="spinner"></span> Gerando prontuário...</div>';
+  divR.style.display='block';divT.innerHTML='<div style="padding:24px;text-align:center;"><span class="spinner"></span> Gerando prontuário...</div>';
   var btn=document.getElementById('btnGerarProntuario');btn.disabled=true;btn.textContent='Gerando...';
-  chamarAPI(prompt,function(txt){
-    divT.textContent=txt;btn.disabled=false;btn.textContent='📋 Gerar Prontuário Médico';
-    divR.scrollIntoView({behavior:'smooth',block:'start'});
-  });
+  chamarAPI(prompt,function(txt){divT.textContent=txt;btn.disabled=false;btn.textContent='📋 Gerar Prontuário Médico';divR.scrollIntoView({behavior:'smooth',block:'start'});});
 }
 
-/* ══════════════════════════════════════════
-   COPIAR
-══════════════════════════════════════════ */
 function copiar(id,btn){
   var txt=document.getElementById(id).textContent;
-  navigator.clipboard.writeText(txt).then(function(){
-    btn.textContent='Copiado ✓';btn.classList.add('copiado');
-    setTimeout(function(){btn.textContent='Copiar';btn.classList.remove('copiado');},2000);
-  });
+  navigator.clipboard.writeText(txt).then(function(){btn.textContent='Copiado ✓';btn.classList.add('copiado');setTimeout(function(){btn.textContent='Copiar';btn.classList.remove('copiado');},2000);});
 }
 
-/* ══════════════════════════════════════════
-   IMPRESSÃO PARA OS PAIS
-══════════════════════════════════════════ */
 function gerarImpressao(){
-  var d=coletarDados();
-  var agora=new Date();
-  var dh=agora.toLocaleString('pt-BR');
+  var d=coletarDados();var agora=new Date();var dh=agora.toLocaleString('pt-BR');
   var neonatal=d.paciente.faixaEtaria.includes('Neonato')||d.paciente.faixaEtaria.includes('Lactente Menor');
-
-  /* tabela de evolução esperada */
   var tabSintomas=[
-    {s:'Febre',ini:document.getElementById('dataInicioFebre').value,ate:'5 dias',ret:'Febre acima de 39°C por mais de 3 dias seguidos ou febre após 5 dias',ativo:d.febre.presente},
+    {s:'Febre',ini:document.getElementById('dataInicioFebre').value,ate:'5 dias',ret:'Febre acima de 39°C por mais de 3 dias ou febre após 5 dias',ativo:d.febre.presente},
     {s:'Coriza',ini:document.getElementById('dataCoriza')?document.getElementById('dataCoriza').value:'',ate:'7 dias',ret:'Sem melhora após 10 dias',ativo:d.sintomas.coriza==='Presente'},
     {s:'Tosse',ini:document.getElementById('dataTosse')?document.getElementById('dataTosse').value:'',ate:'3 a 6 dias (pico)',ret:'Tosse após 4 semanas ou piora progressiva',ativo:d.sintomas.tosse==='Presente'},
     {s:'Dor de garganta',ini:'',ate:'3 dias',ret:'Piora após 3 dias ou persistência além de 7 dias',ativo:d.sintomas.disfagia!==null},
-    {s:'Otalgia',ini:'',ate:'4 dias',ret:'Piora após melhora ou persistência além de 7 dias',ativo:d.sintomas.otalgia==='Presente'},
-    {s:'Sibilância/Chiado',ini:document.getElementById('dataSibilancia')?document.getElementById('dataSibilancia').value:'',ate:'3 a 5 dias (pico)',ret:'Persistência além de 21 dias',ativo:d.sintomas.sibilancia==='Presente'}
+    {s:'Otalgia',ini:'',ate:'4 dias',ret:'Piora após melhora ou além de 7 dias',ativo:d.sintomas.otalgia==='Presente'},
+    {s:'Sibilância',ini:document.getElementById('dataSibilancia')?document.getElementById('dataSibilancia').value:'',ate:'3 a 5 dias (pico)',ret:'Persistência além de 21 dias',ativo:d.sintomas.sibilancia==='Presente'}
   ].filter(function(x){return x.ativo;});
-
   var tabH='<tr><th>Sintoma</th><th>Iniciou em</th><th>Esperado até</th><th>Retorne se não melhorar</th></tr>';
   tabSintomas.forEach(function(x){tabH+='<tr><td><b>'+x.s+'</b></td><td>'+(x.ini||'—')+'</td><td>'+x.ate+'</td><td>'+x.ret+'</td></tr>';});
-
-  var html=
-    '<style>body{font-family:Arial,sans-serif;font-size:12px;color:#111;margin:20px;}'+
-    'h2{color:#1a3a6b;} h3{color:#c0392b;} .bloco-imp{background:#fff;border:1px solid #ccc;border-radius:4px;padding:14px;margin-bottom:14px;page-break-inside:avoid;}'+
-    '.bloco-titulo-imp{font-size:13px;font-weight:bold;background:#1a3a6b;color:white;padding:7px 12px;border-radius:3px 3px 0 0;margin:-14px -14px 12px;}'+
-    'table{width:100%;border-collapse:collapse;} th{background:#1a3a6b;color:white;padding:6px 9px;text-align:left;font-size:11px;}'+
-    'td{padding:5px 9px;border-bottom:1px solid #ddd;font-size:11px;} tr:nth-child(even) td{background:#f5f5f5;}'+
-    '.alarme{background:#fff0f0;border:2px solid #c0392b;border-radius:4px;padding:12px;margin-bottom:12px;}'+
-    '.alarme h4{color:#c0392b;margin-bottom:8px;text-transform:uppercase;font-size:13px;}'+
-    '.alarme ul{margin-left:16px;} .alarme li{font-size:11px;margin-bottom:4px;}'+
-    '.med-box{background:#f0f4ff;border:1px solid #1a3a6b;border-radius:4px;padding:12px;margin-bottom:12px;}'+
-    '.rodape{border-top:2px solid #1a3a6b;padding-top:10px;margin-top:16px;display:flex;justify-content:space-between;font-size:11px;}'+
-    '.linha-ass{border-bottom:1px solid #333;width:200px;height:30px;margin-top:8px;}'+
-    '@media print{button{display:none;}}</style>'+
-    '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">'+
-    '<div><b style="font-size:15px;color:#1a3a6b;">PEDIFORM-IVAS — ORIENTAÇÕES AO RESPONSÁVEL</b><br><span style="font-size:11px;color:#666;">Emergência Pediátrica</span></div>'+
-    '<div style="text-align:right;font-size:11px;color:#333;">'+dh+'<br><b>'+d.paciente.nome+'</b><br>'+d.paciente.idadeNum+' '+d.paciente.idadeUnid+' · '+d.paciente.peso+' kg</div></div>';
-
-  /* bloco linha do tempo */
-  html+='<div class="bloco-imp"><div class="bloco-titulo-imp">Linha do Tempo dos Sintomas</div>';
-  if(tabSintomas.length>0){
-    html+='<table>'+tabH+'</table>';
-  } else html+='<p style="color:#666;font-style:italic;">Nenhum sintoma registrado.</p>';
-  html+='</div>';
-
-  /* bloco medicação */
-  html+='<div class="med-box"><b style="color:#1a3a6b;font-size:12px;">MEDICAÇÃO PRESCRITA</b><br><br>';
-  html+='<table><tr><th>Medicamento</th><th>Dose calculada</th><th>Quando dar</th><th>Intervalo mínimo</th></tr>';
-  /* verificar antitérmicos usados */
-  ['Paracetamol','Dipirona','Ibuprofeno'].forEach(function(drug){
-    var cfg=cfgDrugs[drug];
-    var peso=parseFloat(d.paciente.peso)||0;
-    if(peso>0){
-      var dose=cfg.doses[Math.floor(cfg.doses.length/2)].v;
-      var tot=dose*peso;
-      html+='<tr><td><b>'+drug+'</b></td><td>'+tot.toFixed(0)+' mg ('+dose+' mg/kg)</td><td>Se febre ou dor</td><td>'+cfg.int+'</td></tr>';
-    }
-  });
-  html+='</table></div>';
-
-  /* sinais de alarme */
-  html+='<div class="alarme"><h4>⚠ Sinais de Alarme — Retorne Imediatamente se:</h4><ul>'+
-    '<li>Aparência muito doente — sem energia, não interage, olhar vago</li>'+
-    '<li>Dificuldade para respirar — fazendo força para respirar ou respiração muito rápida</li>'+
-    '<li>Lábios ou unhas azuladas</li>'+
-    '<li>Boca seca, sem lágrimas, urina pouca ou escura, moleira afundada em bebês</li>'+
-    '<li>Pescoço duro, moleira estufada ou convulsões</li>'+
-    '<li>Manchas roxas na pele que não desaparecem ao pressionar</li>'+
-    '<li>Bebê que não mama nada</li>'+
-    (neonatal?'<li><b>ATENÇÃO ESPECIAL: bebê com menos de 1 mês — qualquer temperatura axilar acima de 37,8°C exige ida imediata ao pronto-socorro. Não aguarde.</b></li>':'')+
-    '<li>Chiado forte ou piora do chiado mesmo após uso do broncodilatador</li>'+
-    '<li>Antitérmico dado há mais de 2 horas e febre muito alta que não cede</li>'+
-    '</ul></div>';
-
-  /* orientações gerais */
-  html+='<div class="bloco-imp"><div class="bloco-titulo-imp">Orientações Gerais</div><ul>'+
-    '<li>Ofereça líquidos frequentemente — água, sucos, sopas.</li>'+
-    '<li>O antitérmico leva <b>cerca de 1 hora e meia</b> para fazer efeito e reduz a febre em <b>aproximadamente 1,5 graus</b>. A febre pode não sumir completamente — isso é normal.</li>'+
-    '<li>Não precisa acordar a criança para dar o antitérmico se ela estiver dormindo bem.</li>'+
-    '<li>Alimentação leve enquanto não melhorar — não force se não tiver apetite.</li>'+
-    '<li>Retorne antes da data prevista se houver qualquer piora, mesmo que não seja um dos sinais acima.</li>'+
-    '</ul></div>';
-
-  /* rodapé */
-  html+='<div class="rodape"><div>Médica responsável: ________________________<div class="linha-ass"></div></div><div style="text-align:right;">CRM: ____________<br>Alta: '+dh+'<br><b>Retorno agendado: ________________________</b></div></div>';
-  html+='<br><button onclick="window.print()" style="background:#1a3a6b;color:white;border:none;padding:10px 24px;border-radius:4px;cursor:pointer;font-size:13px;">Imprimir</button>';
-
+  var html='<style>body{font-family:Arial,sans-serif;font-size:12px;color:#111;margin:20px;}h2{color:#1a3a6b;}table{width:100%;border-collapse:collapse;}th{background:#1a3a6b;color:white;padding:6px 9px;text-align:left;font-size:11px;}td{padding:5px 9px;border-bottom:1px solid #ddd;font-size:11px;}tr:nth-child(even) td{background:#f5f5f5;}.alarme{background:#fff0f0;border:2px solid #c0392b;border-radius:4px;padding:12px;margin:12px 0;}.alarme h4{color:#c0392b;margin-bottom:8px;}.med{background:#f0f4ff;border:1px solid #1a3a6b;border-radius:4px;padding:12px;margin:12px 0;}.rodape{border-top:2px solid #1a3a6b;padding-top:10px;margin-top:16px;display:flex;justify-content:space-between;font-size:11px;}@media print{button{display:none;}}</style>'+
+    '<div style="display:flex;justify-content:space-between;margin-bottom:16px;"><div><b style="font-size:15px;color:#1a3a6b;">PEDIFORM-IVAS — ORIENTAÇÕES AO RESPONSÁVEL</b></div><div style="text-align:right;font-size:11px;">'+dh+'<br><b>'+d.paciente.nome+'</b><br>'+d.paciente.idadeNum+' '+d.paciente.idadeUnid+' · '+d.paciente.peso+' kg</div></div>'+
+    '<h4 style="color:#1a3a6b;margin-bottom:8px;">Linha do Tempo dos Sintomas</h4><table>'+tabH+'</table>'+
+    '<div class="med"><b style="color:#1a3a6b;">MEDICAÇÃO</b><br><br><table><tr><th>Medicamento</th><th>Dose calculada</th><th>Quando dar</th><th>Intervalo</th></tr>';
+  ['Paracetamol','Dipirona','Ibuprofeno'].forEach(function(drug){var cfg=cfgDrugs[drug];var peso=parseFloat(d.paciente.peso)||0;if(peso>0){var dose=cfg.doses[Math.floor(cfg.doses.length/2)].v;html+='<tr><td><b>'+drug+'</b></td><td>'+(dose*peso).toFixed(0)+' mg ('+dose+' mg/kg)</td><td>Se febre ou dor</td><td>'+cfg.int+'</td></tr>';}});
+  html+='</table></div>'+
+    '<div class="alarme"><h4>⚠ Sinais de Alarme — Retorne Imediatamente se:</h4><ul><li>Aparência muito doente — sem energia, não interage</li><li>Dificuldade para respirar ou respiração muito rápida</li><li>Lábios ou unhas azuladas</li><li>Boca seca, sem lágrimas, urina pouca ou escura</li><li>Pescoço duro, moleira estufada ou convulsões</li><li>Manchas roxas na pele que não desaparecem ao pressionar</li><li>Bebê que não mama nada</li>'+(neonatal?'<li><b>Bebê menor de 1 mês com temperatura acima de 37,8°C — ir ao PS imediatamente</b></li>':'')+
+    '<li>Chiado forte ou piora do chiado</li><li>Antitérmico há mais de 2h e febre muito alta que não cede</li></ul></div>'+
+    '<h4 style="color:#1a3a6b;margin-bottom:8px;">Orientações Gerais</h4><ul><li>Ofereça líquidos frequentemente.</li><li>O antitérmico leva <b>~1h30</b> para agir e reduz <b>~1,5°C</b>. A febre não precisa sumir completamente.</li><li>Não precisa acordar se estiver dormindo bem.</li><li>Alimentação leve enquanto não melhorar.</li><li>Retorne se houver qualquer piora.</li></ul>'+
+    '<div class="rodape"><div>Médica responsável: ________________________<br><br>Assinatura: ________________________</div><div style="text-align:right;">CRM: ____________<br>Alta: '+dh+'<br><b>Retorno: ________________________</b></div></div>'+
+    '<br><button onclick="window.print()" style="background:#1a3a6b;color:white;border:none;padding:10px 24px;border-radius:4px;cursor:pointer;font-size:13px;">Imprimir</button>';
   var janela=window.open('','_blank');
   janela.document.write('<html><head><title>Orientações — '+d.paciente.nome+'</title></head><body>'+html+'</body></html>');
   janela.document.close();
